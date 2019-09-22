@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Welcome from './views/Welcome/Welcome';
+import Welcome from './views/Welcome';
 import './App.css';
 
 function App() {
