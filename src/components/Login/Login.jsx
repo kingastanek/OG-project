@@ -1,17 +1,47 @@
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
+import { Field, reduxForm } from "redux-form";
+import { Grid, Button } from "@material-ui/core";
+import strings from "config/strings";
 import { withStyles } from "@material-ui/styles";
 import styles from "./Login.style";
 
 class Login extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, handleSubmit } = this.props;
     return (
-      <Grid className={classes.wrapper}>
-        Login
-      </Grid>
+      <form onSubmit={handleSubmit} className={classes.formWrapper}>
+        <Grid className={classes.inputWrapper}>
+          <label className={classes.formLabel}>{strings.LOGIN}</label>
+          <Field
+            name="login"
+            component="input"
+            type="text"
+            className={classes.field}
+          />
+        </Grid>
+        <Grid className={classes.inputWrapper}>
+          <label className={classes.formLabel}>{strings.PASSWORD}</label>
+          <Field
+            name="password"
+            component="input"
+            type="password"
+            className={classes.field}
+          />
+        </Grid>
+        <Button
+          type="submit"
+          classes={{
+            root: classes.buttonRoot,
+            label: classes.buttonLabel
+          }}
+        >
+          {strings.LOGIN}
+        </Button>
+      </form>
     );
   }
 }
 
-export default withStyles(styles)(Login);
+export default reduxForm({
+  form: "login"
+})(withStyles(styles)(Login));

@@ -25,10 +25,14 @@ export default theme => ({
     display: 'flex',
     alignSelf: 'center',
     margin: '0 auto',
+    position: 'relative',
   },
   buttonWrapper: {
     flexDirection: 'row',
     width: '100%',
+    height: 50,
+    top: -49,
+    position: 'absolute',
   },
   switchButton: {
     ...switchButton,

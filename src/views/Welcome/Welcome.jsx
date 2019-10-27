@@ -61,8 +61,8 @@ class Welcome extends Component {
             >
               {strings.REGISTRATION}
             </Button>
-            {loginActive ? <Login /> : <Registration />}
           </Grid>
+          {loginActive ? <Login /> : <Registration />}
         </Grid>
       </Grid>
     );
