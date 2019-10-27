@@ -1,14 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, combineReducers  } from "redux";
+import { reducer as formReducer } from 'redux-form'
 import { Provider } from "react-redux";
-import reducer from "./store/reducer";
+import reducer from "store/reducers/reducer";
+import middleware from "store/middleware";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+  reducer,
+  form: formReducer
+})
+
+
+const store = createStore(rootReducer, middleware);
 
 ReactDOM.render(
   <Provider store={store}>
