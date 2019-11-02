@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import { Grid, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import Login from "components/Login";

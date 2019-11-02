@@ -37,5 +37,8 @@ export default theme => ({
     textShadow: "1px 1px #9fe75c",
     fontWeight: 500,
     textTransform: 'capitalize',
+  },
+  errorWrapper: { 
+    color: colors.red,
   }
 });

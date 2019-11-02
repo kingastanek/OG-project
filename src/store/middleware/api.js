@@ -25,9 +25,6 @@ async function callApi(endpoint, settings, apiUrl = API_URL) {
 
     return Promise.resolve(response);
   } catch (error) {
-    const { status } = error.response;
-    console.log(status);
-
     return Promise.reject(error);
   }
 }

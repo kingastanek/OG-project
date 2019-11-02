@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore, combineReducers  } from "redux";
 import { reducer as formReducer } from 'redux-form'
 import { Provider } from "react-redux";
-import reducer from "store/reducers/reducer";
+import reducer from "store/reducers";
 import middleware from "store/middleware";
 import "./index.css";
 import App from "./App";

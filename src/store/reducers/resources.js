@@ -2,7 +2,7 @@ import {
   GET_USER_RESOURCES_REQUEST,
   GET_USER_RESOURCES_SUCCESS,
   GET_USER_RESOURCES_FAILURE,
-} from "store/actions/action";
+} from "store/actions/resources";
 
 const initialState = {
   areResourcesFetching: false,
