@@ -6,6 +6,5 @@
       "components/*": ["components/*"],
       "store/*": ["store/*"],
       "config/*": ["config/*"]
-    }
   }
 }
