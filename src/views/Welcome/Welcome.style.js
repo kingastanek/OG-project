@@ -1,4 +1,4 @@
-import background from '../../background.jpg';
+import background from '../../assets/images/background.jpg';
 import colors from 'config/colors';
 
 const switchButton = {
