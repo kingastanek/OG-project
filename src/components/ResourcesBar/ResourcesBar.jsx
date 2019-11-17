@@ -11,6 +11,7 @@ import { getUserResources } from 'store/actions/resources';
 import styles from "./ResourcesBar.style.";
 
 class ResourcesBar extends Component {
+  // waiting for correct data from backend
   // async componentDidMount() {
   //   const { getUserResources, user: { user_id } } = this.props;
   //   await getUserResources(user_id);
