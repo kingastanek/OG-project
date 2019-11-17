@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Welcome from './views/Welcome';
 import Main from './views/Main';
-import './App.css';
 
 function App() {
   return (
