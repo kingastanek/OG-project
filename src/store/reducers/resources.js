@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       });
     }
     case GET_USER_RESOURCES_SUCCESS: {
-      const result = action;
+      const result = action.response.data;
       return Object.assign({}, state, {
         areResourcesFetching: false,
         resources: result
