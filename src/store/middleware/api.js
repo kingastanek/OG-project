@@ -6,7 +6,7 @@ import axios from 'axios';
  * @param {object} settings - request settings
  */
 
-const API_URL = 'http://192.168.1.2:8080';
+const API_URL = 'http://localhost:8080';
 
 async function callApi(endpoint, settings, apiUrl = API_URL) {
   try {
