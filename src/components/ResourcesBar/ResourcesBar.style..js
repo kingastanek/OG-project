@@ -5,6 +5,7 @@ import colors from 'config/colors';
 const ITEM_WIDTH = 48;
 const ITEM_HEIGHT = 32;
 const FONT_SIZE = 9;
+const ITEM_MARGIN = 38;
 const resources = {
   width: ITEM_WIDTH,
   minWidth: ITEM_WIDTH,
@@ -15,19 +16,21 @@ export default theme => ({
   list: {
     display: 'flex',
     height: ITEM_HEIGHT,
-    margin: '0 auto',
-    width: '50%',
-    justifyContent: 'space-around',
+    paddingTop: 20,
+    paddingLeft: 40,
+    float: 'left',
   },
   listItem: {
     display: 'block',
     minWidth: ITEM_WIDTH,
     width: ITEM_WIDTH,
     padding: 0,
+    marginRight: ITEM_MARGIN,
   },
   resourceText: {
     color: colors.white,
     fontSize: FONT_SIZE,
+    width: ITEM_WIDTH,
     textAlign: 'center',
   },
   metal: {
