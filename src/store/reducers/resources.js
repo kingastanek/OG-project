@@ -1,8 +1,4 @@
-import {
-  GET_USER_RESOURCES_REQUEST,
-  GET_USER_RESOURCES_SUCCESS,
-  GET_USER_RESOURCES_FAILURE,
-} from "store/actions/resources";
+import types from "store/types/types";
 
 const initialState = {
   areResourcesFetching: false,
@@ -11,19 +7,19 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_RESOURCES_REQUEST: {
+    case types.GET_USER_RESOURCES_REQUEST: {
       return Object.assign({}, state, {
         areResourcesFetching: true
       });
     }
-    case GET_USER_RESOURCES_SUCCESS: {
+    case types.GET_USER_RESOURCES_SUCCESS: {
       const result = action.response.data;
       return Object.assign({}, state, {
         areResourcesFetching: false,
         resources: result
       });
     }
-    case GET_USER_RESOURCES_FAILURE: {
+    case types.GET_USER_RESOURCES_FAILURE: {
       return Object.assign({}, state, {
         areResourcesFetching: false
       });
