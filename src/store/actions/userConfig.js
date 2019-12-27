@@ -14,3 +14,23 @@ export const loginUser = (email, password) => {
     },
   };
 }
+
+export const registerUser = (newUser) => {
+  const { email, password, username } = newUser;
+  return {
+    [CALL_API]: {
+      endpoint: `user-api`,
+      method: 'PUT',
+      types: [
+        types.REGISTER_USER_REQUEST,
+        types.REGISTER_USER_SUCCESS,
+        types.REGISTER_USER_FAILURE,
+      ],
+      data: {
+        username,
+        email,
+        password
+      }
+    },
+  };
+}

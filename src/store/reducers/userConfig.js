@@ -3,7 +3,8 @@ import types from "store/types/types";
 const initialState = {
   isLoginFetching: false,
   isAuthenticated: false,
-  user: {}
+  user: {},
+  isUserCreated: false,
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +27,22 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isLoginFetching: false,
         isAuthenticated: false,
+      });
+    }
+
+    case types.REGISTER_USER_REQUEST: {
+      return Object.assign({}, state, {
+        isUserCreated: false,
+      });
+    }
+    case types.REGISTER_USER_SUCCESS: {
+      return Object.assign({}, state, {
+        isUserCreated: true,
+      });
+    }
+    case types.REGISTER_USER_FAILURE: {
+      return Object.assign({}, state, {
+        isUserCreated: false,
       });
     }
 
