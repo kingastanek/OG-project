@@ -1,12 +1,11 @@
 
 export default theme => ({
   container: {
-    width: '100%',
     height: '100%',
-  },
-  resourcesWrapper: {
     width: 980,
     margin: '0 auto',
+  },
+  resourcesWrapper: {
     display: 'flex',
     justifyContent: 'center',
   },
