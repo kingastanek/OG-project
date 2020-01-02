@@ -14,6 +14,8 @@ class Registration extends Component {
   onSubmit = async (values) => {
     const { username, email, password } = values;
     const { onRegisterUser, history } = this.props;
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
     const newUserData = {
       username,
       email,

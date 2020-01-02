@@ -15,14 +15,19 @@ class Login extends Component {
   };
 
   onSubmit = async (values) => {
-    const { email, password } = values;
-    const { onLoginUser, history } = this.props;
-    await onLoginUser(email, password);
-    const { isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      const path = "/main";
-      history.push(path);
-    } else {
+    try {
+      const { username, password } = values;
+      const { onLoginUser, history } = this.props;
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      await onLoginUser(username, password);
+      const { isAuthenticated } = this.props;
+      if (isAuthenticated) {
+        const path = "/main";
+        history.push(path);
+      }
+    }
+    catch {
       this.setState({ errorMessage: strings.LOGIN_FAILURE_MESSAGE });
     }
   };
@@ -37,9 +42,9 @@ class Login extends Component {
       >
         <Typography className={classes.errorWrapper}>{errorMessage}</Typography>
         <Grid className={classes.inputWrapper}>
-          <label className={classes.formLabel}>{strings.EMAIL}</label>
+          <label className={classes.formLabel}>{strings.USERNAME}</label>
           <Field
-            name="email"
+            name="username"
             component="input"
             type="text"
             className={classes.field}
@@ -74,7 +79,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoginUser: (email, password) => dispatch(loginUser(email, password))
+  onLoginUser: (username, password) => dispatch(loginUser(username, password))
 });
 
 export default compose(

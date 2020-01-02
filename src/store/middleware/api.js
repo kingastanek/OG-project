@@ -15,9 +15,13 @@ async function callApi(endpoint, settings, apiUrl = API_URL) {
       url: `${apiUrl}${endpoint}`,
       validateStatus: status => status >= 200 && status < 300,
     };
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    let auth = window.btoa(`${username}:${password}`)
 
     apiConfig.headers = {
       'Content-Type': 'application/json',
+      'Authorization': endpoint !== '/user-api' && `Basic ${auth}`,
       ...apiConfig.headers,
     };
 
