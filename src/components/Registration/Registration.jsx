@@ -12,14 +12,13 @@ import styles from "./Registration.style";
 class Registration extends Component {
   
   onSubmit = async (values) => {
-    const { username, registration, password } = values;
+    const { username, email, password } = values;
     const { onRegisterUser, history } = this.props;
     const newUserData = {
       username,
-      email: registration,
+      email,
       password
     };
-    console.log("newUserData", newUserData);
     await onRegisterUser(newUserData);
     const { isUserCreated } = this.props;
     if (isUserCreated) {
@@ -37,7 +36,7 @@ class Registration extends Component {
         <Grid className={classes.inputWrapper}>
           <label className={classes.formLabel}>{strings.EMAIL}</label>
           <Field
-            name="registration"
+            name="email"
             component="input"
             type="text"
             className={classes.field}
@@ -80,7 +79,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onRegisterUser: (email, password) => dispatch(registerUser(email, password))
+  onRegisterUser: (userData) => dispatch(registerUser(userData))
 });
 
 export default compose(

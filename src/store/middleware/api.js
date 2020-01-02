@@ -12,7 +12,7 @@ async function callApi(endpoint, settings, apiUrl = API_URL) {
   try {
     const apiConfig = {
       ...settings,
-      url: `${apiUrl}/${endpoint}`,
+      url: `${apiUrl}${endpoint}`,
       validateStatus: status => status >= 200 && status < 300,
     };
 

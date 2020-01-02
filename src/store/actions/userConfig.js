@@ -19,8 +19,8 @@ export const registerUser = (newUser) => {
   const { email, password, username } = newUser;
   return {
     [CALL_API]: {
-      endpoint: `user-api`,
-      method: 'PUT',
+      endpoint: `/user-api`,
+      method: 'POST',
       types: [
         types.REGISTER_USER_REQUEST,
         types.REGISTER_USER_SUCCESS,
