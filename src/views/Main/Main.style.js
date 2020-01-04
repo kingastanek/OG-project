@@ -23,5 +23,11 @@ export default theme => ({
     paddingTop: 20,
     paddingLeft: 40,
     float: 'right',
+   },
+   actionBarWrapper: {
+     paddingTop: 22,
+     display: 'flex',
+     justifyContent: 'center',
+     width: '100%'
    }
 })

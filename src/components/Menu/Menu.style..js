@@ -5,6 +5,8 @@ export default theme => ({
     width: 136,
     padding: 6,
     margin: 14,
+    border: '2px double black',
+    borderRadius: 10,
   },
   linksText: {
     color: '#747e88',

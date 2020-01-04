@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import ResourcesBar from 'components/ResourcesBar';
 import Menu from 'components/Menu';
+import ActionBar from 'components/ActionBar';
 import logo from 'assets/images/logo.png';
 import commanders from 'assets/images/commanders.png';
 import PropTypes from "prop-types";
@@ -19,12 +20,8 @@ class Main extends Component {
           <ResourcesBar />
           <img alt="commanders" src={commanders} className={classes.commanders}/>
         </Grid>
-        <Grid item xs={2}>
-          <Menu />
-        </Grid>
-        <Grid item xs={8}>
-          {/* planets overview */}
-        </Grid>
+        <Grid item xs={2}><Menu /></Grid>
+        <Grid item xs={8} className={classes.actionBarWrapper}><ActionBar /></Grid>
         <Grid item xs={2}>
           {/* planets list */}
         </Grid>
