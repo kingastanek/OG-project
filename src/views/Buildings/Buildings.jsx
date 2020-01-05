@@ -28,8 +28,8 @@ class Buildings extends Component {
           <Grid className={classes.centeredWrapper}><ActionBar /></Grid>
           <Grid className={classes.centeredWrapper}>
             <img src={buildingsBackground} alt={strings.BUILDINGS} className={classes.buildingsImg} />
-            <div className={classes.welcomeTextBlock}>
-              <Typography className={classes.welcomeText}>{strings.BUILDINGS}</Typography>
+            <div className={classes.buildingsTextBlock}>
+              <Typography className={classes.buildingsText}>{strings.BUILDINGS}</Typography>
             </div>
           </Grid>
         </Grid>

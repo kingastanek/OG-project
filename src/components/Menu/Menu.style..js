@@ -15,6 +15,13 @@ export default theme => ({
     padding: 6,
     border: '1px solid black',
     borderRadius: 10,
+    fontSize: 14,
+    fontWeight: 700,
+    '&:hover': {
+      color: colors.white,
+      width: 136,
+      background: 'linear-gradient(180deg,#7796ab,#7796ab 50%,#7796ab 51%,#192330)',
+    }
   },
   activeLink: {
     color: colors.white,

@@ -41,14 +41,14 @@ export default theme => ({
     paddingTop: 12,
     borderRadius: 10,
    },
-   welcomeTextBlock: {
+   buildingsTextBlock: {
     position: 'absolute',
     zIndex: '100',
     top: 15,
     right: 40,
     width: 450
    },
-   welcomeText: {
+   buildingsText: {
     color: colors.white,
     fontSize: 20,
     fontWeight: 700
