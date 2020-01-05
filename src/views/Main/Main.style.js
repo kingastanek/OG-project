@@ -1,3 +1,4 @@
+import colors from "config/colors";
 
 export default theme => ({
   container: {
@@ -24,10 +25,33 @@ export default theme => ({
     paddingLeft: 40,
     float: 'right',
    },
-   actionBarWrapper: {
-     paddingTop: 22,
-     display: 'flex',
-     justifyContent: 'center',
-     width: '100%'
+   actionBarContainer: {
+    paddingTop: 29,
+   },
+   centeredWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative'
+   },
+   welcome: {
+    width: 600,
+    height: 400,
+    paddingTop: 12,
+    borderRadius: 10,
+   },
+   welcomeTextBlock: {
+    position: 'absolute',
+    zIndex: '100',
+    background: 'rgba(0,0,0,0.5)',
+    top: 20,
+    right: 35,
+    width: 450
+   },
+   welcomeText: {
+     color: colors.white,
+     fontSize: 20,
+     fontWeight: 700
    }
 })
