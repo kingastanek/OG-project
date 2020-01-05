@@ -11,13 +11,9 @@ class Planets extends Component {
     hover: false,
   }
 
-  hoverOn = () => {
-    this.setState({ hover: true });
-  }
+  hoverOn = () => this.setState({ hover: true });
 
-  hoverOff = () => { 
-    this.setState({ hover: false });    
-  }
+  hoverOff = () => this.setState({ hover: false });
 
   render() {
     const { classes } = this.props;

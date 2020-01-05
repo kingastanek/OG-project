@@ -17,6 +17,8 @@ export default (state = initialState, action) => {
     }
     case types.LOGIN_USER_SUCCESS: {
       const user = action.response.data;
+      const { user_id } = user;
+      localStorage.setItem('userId', user_id);
       return Object.assign({}, state, {
         isLoginFetching: false,
         isAuthenticated: true,

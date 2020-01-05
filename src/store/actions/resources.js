@@ -5,7 +5,7 @@ import types from "store/types/types";
 export const getUserResources = (userId) => {
   return {
     [CALL_API]: {
-      endpoint: `api-user/${userId}/resources`,
+      endpoint: `/resource-api/${userId}/resources`,
       method: 'GET',
       types: [
         types.GET_USER_RESOURCES_REQUEST,

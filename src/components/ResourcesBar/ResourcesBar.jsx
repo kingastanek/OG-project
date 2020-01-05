@@ -11,26 +11,27 @@ import { getUserResources } from 'store/actions/resources';
 import styles from "./ResourcesBar.style.";
 
 class ResourcesBar extends Component {
-  // waiting for correct data from backend
-  // async componentDidMount() {
-  //   const { getUserResources, user: { user_id } } = this.props;
-  //   await getUserResources(user_id);
-  // }
+  async componentDidMount() {
+    const { getUserResources } = this.props;
+    const userId = localStorage.getItem('userId');
+    await getUserResources(userId);
+  }
   
   render() {
-    const { classes } = this.props;
-    const resources = [
+    const { classes, resources } = this.props;
+    console.log("resources",resources);
+    const resourcesList = [
       {
         name: 'metal',
-        value: 500,
+        value: resources.metal,
       },
       {
         name: 'crystal',
-        value: 1200,
+        value: resources.cristal
       },
       {
         name: 'deuterium',
-        value: 250,
+        value: resources.deuterium
       },
       {
         name: 'darkMatter',
@@ -43,7 +44,7 @@ class ResourcesBar extends Component {
     ];
     return (
       <List className={classes.list}>
-        {resources.map(resource => {
+        {resourcesList.map(resource => {
           return (
             <ListItem key={resource.name} className={classes.listItem}>
               <ListItemIcon>
@@ -59,7 +60,6 @@ class ResourcesBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.reducer.userConfig.user,
   resources: state.reducer.resources.resources,
 });
 
