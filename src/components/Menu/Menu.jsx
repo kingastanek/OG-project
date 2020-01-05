@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   List,
   ListItem,
@@ -18,15 +18,15 @@ class Menu extends Component {
         linksTo: '/main'
       },
       {
-        name: 'Resources',
-        linksTo: '/main'
+        name: 'Buildings',
+        linksTo: '/buildings'
       }
     ];
     return (
       <List className={classes.list}>
         {links.map(link => (
           <ListItem key={link.name} className={classes.listItem}>
-            <Link to={link.linksTo} className={classes.linksText}>{link.name}</Link>
+            <NavLink activeClassName={classes.activeLink} to={link.linksTo} className={classes.linksText}>{link.name}</NavLink>
           </ListItem>
         ))}
       </List>

@@ -6,13 +6,13 @@ import Menu from 'components/Menu';
 import ActionBar from 'components/ActionBar';
 import Planets from 'components/Planets';
 import logo from 'assets/images/logo.png';
-import welcome from 'assets/images/welcome.jpg';
+import buildingsBackground from 'assets/images/buildings.jpg';
 import commanders from 'assets/images/commanders.png';
 import PropTypes from "prop-types";
-import styles from "./Main.style";
+import styles from "./Buildings.style";
 import strings from "config/strings";
 
-class Main extends Component {
+class Buildings extends Component {
   render() {
     const { classes } = this.props;
   
@@ -27,9 +27,9 @@ class Main extends Component {
         <Grid item xs={8} className={classes.actionBarContainer}>
           <Grid className={classes.centeredWrapper}><ActionBar /></Grid>
           <Grid className={classes.centeredWrapper}>
-            <img src={welcome} alt="welcome" className={classes.welcomeImg} />
+            <img src={buildingsBackground} alt={strings.BUILDINGS} className={classes.buildingsImg} />
             <div className={classes.welcomeTextBlock}>
-              <Typography className={classes.welcomeText}>{strings.WELCOME_TEXT}</Typography>
+              <Typography className={classes.welcomeText}>{strings.BUILDINGS}</Typography>
             </div>
           </Grid>
         </Grid>
@@ -39,8 +39,8 @@ class Main extends Component {
   }
 }
 
-Main.propTypes = {
+Buildings.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Main);
+export default withStyles(styles)(Buildings);

@@ -35,7 +35,7 @@ export default theme => ({
     alignItems: 'center',
     position: 'relative'
    },
-   welcomeImg: {
+   buildingsImg: {
     width: 600,
     height: 300,
     paddingTop: 12,

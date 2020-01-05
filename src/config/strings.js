@@ -9,4 +9,5 @@ export default {
   NO_FLEET_MOVEMENT: "No fleet movement",
   WELCOME_TEXT: 'Welcome to OGame!',
   HOMEWORLD: 'Homeworld',
+  BUILDINGS: 'Buildings'
 };

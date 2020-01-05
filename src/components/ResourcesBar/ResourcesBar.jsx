@@ -19,7 +19,6 @@ class ResourcesBar extends Component {
   
   render() {
     const { classes, resources } = this.props;
-    console.log("resources",resources);
     const resourcesList = [
       {
         name: 'metal',
