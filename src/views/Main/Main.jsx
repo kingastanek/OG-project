@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/styles";
 import ResourcesBar from 'components/ResourcesBar';
 import Menu from 'components/Menu';
 import ActionBar from 'components/ActionBar';
+import Planets from 'components/Planets';
 import logo from 'assets/images/logo.png';
 import welcome from 'assets/images/welcome.jpg';
 import commanders from 'assets/images/commanders.png';
@@ -32,9 +33,7 @@ class Main extends Component {
             </div>
           </Grid>
         </Grid>
-        <Grid item xs={2}>
-          {/* planets list */}
-        </Grid>
+        <Grid item xs={2}><Planets /></Grid>
       </Grid>
     );
   }
