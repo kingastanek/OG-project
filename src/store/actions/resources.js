@@ -1,7 +1,6 @@
 import { CALL_API } from 'store/middleware/api';
 import types from "store/types/types";
 
-
 export const getUserResources = (userId) => {
   return {
     [CALL_API]: {
