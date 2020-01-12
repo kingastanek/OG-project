@@ -11,5 +11,12 @@ export default {
   HOMEWORLD: 'Homeworld',
   BUILDINGS: 'Buildings',
   LOGO: 'Logo',
-  COMMANDERS: 'Commanders'
+  COMMANDERS: 'Commanders',
+  METAL_MINE: 'Metal mine',
+  LEVEL: 'Level',
+  PRODUCTION_DURATION: 'Production duration',
+  ENERGY_NEEDED: 'Energy needed',
+  METAL_DESCRIPTION: 'Used in the extraction of metal ore, metal mines are of primary importance to all emerging and established empires.',
+  REQUIRED_TO_BUILD: 'Required to improve to level ',
+  IMPROVE: 'Improve'
 };
