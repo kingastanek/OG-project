@@ -133,6 +133,6 @@ export default theme => ({
     color: colors.white,
     fontSize: 14,
     fontWeight: 700,
-    textTransformation: 'lower',
+    textTransform: 'capitalize',
   }
 });

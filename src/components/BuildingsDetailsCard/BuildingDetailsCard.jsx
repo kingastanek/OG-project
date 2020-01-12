@@ -9,7 +9,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { withStyles } from "@material-ui/styles";
-import { getBuildings } from 'store/actions/buildings';
+import { getBuildings, buildingLevelUp } from 'store/actions/buildings';
 import strings from "config/strings";
 import styles from "./BuildingDetailsCard.style";
 
@@ -18,6 +18,13 @@ class BuildingDetailsCard extends Component {
     const { getUserBuildings } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
+  }
+
+  onImproveClick = async () => {
+    const { buildingLevelUp,buildings } = this.props;
+    const { metal } = buildings;
+    const userId = localStorage.getItem('userId');
+    await buildingLevelUp(userId, metal.name);
   }
 
   render() {
@@ -47,7 +54,7 @@ class BuildingDetailsCard extends Component {
           </Grid>
           <Grid className={classes.productionInformation}>
             <Typography className={classes.productionText}>
-              {strings.PRODUCTION_DURATION}: {metal.buildTime}
+              {strings.PRODUCTION_DURATION}: {metal.buildTime}s
             </Typography>
             <Typography className={classes.productionText}>
               {strings.ENERGY_NEEDED}: 0
@@ -74,7 +81,9 @@ class BuildingDetailsCard extends Component {
             classes={{
               root: classes.improveButton,
               label: classes.improveButtonLabel
-            }}>{strings.IMPROVE}</Button>
+            }}
+            onClick={this.onImproveClick}
+            >{strings.IMPROVE}</Button>
         </Grid>
         <Grid className={classes.descriptionWrapper}>
           <Typography className={classes.descriptionText}>
@@ -92,6 +101,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUserBuildings: userId => dispatch(getBuildings(userId)),
+  buildingLevelUp: (userId, buildingName) => dispatch(buildingLevelUp(userId, buildingName))
 });
 
 export default connect(
