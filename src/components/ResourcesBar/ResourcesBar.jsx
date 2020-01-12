@@ -19,7 +19,7 @@ class ResourcesBar extends Component {
   
   render() {
     const { classes, resources } = this.props;
-    const { metal, cristal, deuterium } = resources;
+    const { metal, cristal, deuterium, } = resources;
     const resourcesList = [
       { name: 'metal', value: metal },
       { name: 'cristal', value: cristal },
@@ -27,6 +27,7 @@ class ResourcesBar extends Component {
       { name: 'darkMatter', value: 0 },
       { name: 'energy', value: 0 },
     ];
+
     return (
       <List className={classes.list}>
         {resourcesList.map(resource => {
@@ -48,9 +49,8 @@ const mapStateToProps = state => ({
   resources: state.reducer.resources.resources,
 });
 
-
 const mapDispatchToProps = dispatch => ({
-  getUserResources: userId => dispatch(getUserResources(userId))
+  getUserResources: userId => dispatch(getUserResources(userId)),
 });
 
 export default connect(
