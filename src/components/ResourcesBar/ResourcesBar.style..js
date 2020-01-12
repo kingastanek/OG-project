@@ -37,7 +37,7 @@ export default theme => ({
     ...resources,
     background: `url(${resourcesImg}) 0 -160px`,
   },
-  crystal: {
+  cristal: {
     ...resources,
     background: `url(${resourcesImg}) -48px -160px`,
   },

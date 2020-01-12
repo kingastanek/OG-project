@@ -19,27 +19,13 @@ class ResourcesBar extends Component {
   
   render() {
     const { classes, resources } = this.props;
+    const { metal, cristal, deuterium } = resources;
     const resourcesList = [
-      {
-        name: 'metal',
-        value: resources.metal,
-      },
-      {
-        name: 'crystal',
-        value: resources.cristal
-      },
-      {
-        name: 'deuterium',
-        value: resources.deuterium
-      },
-      {
-        name: 'darkMatter',
-        value: 0,
-      },
-      {
-        name: 'energy',
-        value: 0,
-      },
+      { name: 'metal', value: metal },
+      { name: 'cristal', value: cristal },
+      { name: 'deuterium', value: deuterium },
+      { name: 'darkMatter', value: 0 },
+      { name: 'energy', value: 0 },
     ];
     return (
       <List className={classes.list}>

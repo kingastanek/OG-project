@@ -8,7 +8,6 @@ import Planets from 'components/Planets';
 import logo from 'assets/images/logo.png';
 import welcome from 'assets/images/welcome.jpg';
 import commanders from 'assets/images/commanders.png';
-import PropTypes from "prop-types";
 import styles from "./Main.style";
 import strings from "config/strings";
 
@@ -38,9 +37,5 @@ class Main extends Component {
     );
   }
 }
-
-Main.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Main);

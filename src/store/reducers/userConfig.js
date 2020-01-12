@@ -17,6 +17,7 @@ export default (state = initialState, action) => {
     }
     case types.LOGIN_USER_SUCCESS: {
       const user = action.response.data;
+      console.log(user.user_id);
       const { user_id } = user;
       localStorage.setItem('userId', user_id);
       return Object.assign({}, state, {

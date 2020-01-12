@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/styles";
 import Login from "components/Login";
 import Registration from "components/Registration";
 import strings from "config/strings";
-import PropTypes from "prop-types";
 import styles from "./Welcome.style";
 
 class Welcome extends Component {
@@ -66,9 +65,5 @@ class Welcome extends Component {
     );
   }
 }
-
-Welcome.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Welcome);

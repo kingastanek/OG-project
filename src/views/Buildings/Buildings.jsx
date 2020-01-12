@@ -7,9 +7,8 @@ import ActionBar from 'components/ActionBar';
 import Planets from 'components/Planets';
 import BuildingDetailsCard from 'components/BuildingsDetailsCard';
 import logo from 'assets/images/logo.png';
-import buildingsBackground from 'assets/images/buildings.jpg';
+import buildingsBackground from 'assets/images/buildingsMainImage.jpg';
 import commanders from 'assets/images/commanders.png';
-import PropTypes from "prop-types";
 import styles from "./Buildings.style";
 import strings from "config/strings";
 
@@ -64,9 +63,5 @@ class Buildings extends Component {
     );
   }
 }
-
-Buildings.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Buildings);
