@@ -1,6 +1,8 @@
 import types from "store/types/types"
 
 const initialState = {
+  areBuildingsFetching: false,
+  buildingLevelUpSent:  false,
   metal: {},
   deuterium: {},
   cristal: {},
@@ -36,7 +38,23 @@ export default (state = initialState, action) => {
     }
     case types.GET_USER_BUILDINGS_FAILURE: {
       return Object.assign({}, state, {
-        areBuildingsFetching: false,
+        areBuildingsFetching: true,
+      })
+    }
+
+    case types.BUILDING_LEVEL_UP_REQUEST: {
+      return Object.assign({}, state, {
+        buildingLevelUpSent: false,
+      })
+    }
+    case types.BUILDING_LEVEL_UP_SUCCESS: {
+      return Object.assign({}, state, {
+        buildingLevelUpSent: true,
+      })
+    }
+    case types.BUILDING_LEVEL_UP_FAILURE: {
+      return Object.assign({}, state, {
+        buildingLevelUpSent: true,
       })
     }
     default:

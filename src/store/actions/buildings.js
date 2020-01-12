@@ -14,3 +14,21 @@ export const getBuildings = userId => {
     }
   };
 };
+
+export const buildingLevelUp = (userId, buildingName) => {
+  return {
+    [CALL_API]: {
+      endpoint: `/building-api/${userId}/${buildingName}`,
+      method: 'PUT',
+      types: [
+        types.BUILDING_LEVEL_UP_REQUEST,
+        types.BUILDING_LEVEL_UP_SUCCESS,
+        types.BUILDING_LEVEL_UP_FAILURE
+      ],
+      data: {
+        userId,
+        buildingName,
+      }
+    }
+  };
+};
