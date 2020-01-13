@@ -34,7 +34,7 @@ class BuildingDetailsCard extends Component {
       buildings,
     } = this.props;
     const { metal } = buildings;
-    const { neededMetal, neededCristal } = metal;
+    const { neededMetal, neededCristal, isAbleToBuild } = metal;
     const resourcesList = [
       { name: 'metal', value: neededMetal },
       { name: 'cristal', value: neededCristal },
@@ -54,7 +54,7 @@ class BuildingDetailsCard extends Component {
           </Grid>
           <Grid className={classes.productionInformation}>
             <Typography className={classes.productionText}>
-              {strings.PRODUCTION_DURATION}: {metal.buildTime}s
+              {strings.PRODUCTION_DURATION}: {metal.buildTime}
             </Typography>
             <Typography className={classes.productionText}>
               {strings.ENERGY_NEEDED}: 0
@@ -80,9 +80,11 @@ class BuildingDetailsCard extends Component {
           <Button
             classes={{
               root: classes.improveButton,
+              disabled: classes.improveButtonDisabled,
               label: classes.improveButtonLabel
             }}
             onClick={this.onImproveClick}
+            disabled={isAbleToBuild > 1}
             >{strings.IMPROVE}</Button>
         </Grid>
         <Grid className={classes.descriptionWrapper}>

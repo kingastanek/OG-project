@@ -1,6 +1,7 @@
 import buildingsImg from 'assets/images/buildings.png';
 import resourcesImg from 'assets/images/resources.png';
 import improveButtonImg from 'assets/images/improveButton.png';
+import improveButtonDisabled from 'assets/images/improveButtonDisabled.png';
 import colors from 'config/colors';
 
 const ITEM_WIDTH = 48;
@@ -9,6 +10,16 @@ const resources = {
   width: ITEM_WIDTH,
   minWidth: ITEM_WIDTH,
   height: ITEM_HEIGHT,
+}
+
+const improveButton = {
+  backgroundSize: 'cover',
+  width: 138,
+  height: 50,
+  borderRadius: 4,
+  position: 'absolute',
+  bottom: 5,
+  right: 5,
 }
 
 const information = {
@@ -121,18 +132,18 @@ export default theme => ({
     fontSize: 11,
   },
   improveButton: {
-    background: `url(${improveButtonImg})`,
-    width: 138,
-    height: 50,
-    borderRadius: 4,
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
+    ...improveButton,
+    background: `url(${improveButtonImg}) no-repeat`,
   },
   improveButtonLabel: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 700,
     textTransform: 'capitalize',
+  },
+  improveButtonDisabled: {
+    ...improveButton,
+    background: `url(${improveButtonDisabled}) no-repeat`,
+    color: colors.white
   }
 });
