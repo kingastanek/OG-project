@@ -28,12 +28,7 @@ class BuildingDetailsCard extends Component {
   }
 
   render() {
-    const {
-      classes,
-      active,
-      buildings,
-    } = this.props;
-    const { metal } = buildings;
+    const { classes, active, buildings: { metal } } = this.props;
     const { neededMetal, neededCristal, isAbleToBuild } = metal;
     const resourcesList = [
       { name: 'metal', value: neededMetal },
@@ -42,7 +37,6 @@ class BuildingDetailsCard extends Component {
     return (
       <Grid className={active ? classes.buildingDetailsActive : classes.buildingDetails}>
         <div className={classes.metalMineCardImg} />
-
         <Grid className={classes.contentWrapper}>
           <Grid className={classes.mainInformation}>
             <Typography className={classes.mineNameText}>

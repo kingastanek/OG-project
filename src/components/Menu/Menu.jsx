@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
+import strings from 'config/strings';
 import {
   List,
   ListItem,
@@ -8,19 +9,13 @@ import { withStyles } from "@material-ui/styles";
 import styles from "./Menu.style.";
 
 class Menu extends Component {
-
-  
   render() {
     const { classes } = this.props;
+    const { OVERVIEW, BUILDINGS, RESEARCH } = strings;
     const links = [
-      {
-        name: 'Overview',
-        linksTo: '/main'
-      },
-      {
-        name: 'Buildings',
-        linksTo: '/buildings'
-      }
+      { name: OVERVIEW, linksTo: '/main' },
+      { name: BUILDINGS, linksTo: '/buildings' },
+      { name: RESEARCH, linksTo: '/reasearch' }
     ];
     return (
       <List className={classes.list}>
