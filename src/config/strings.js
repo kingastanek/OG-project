@@ -18,5 +18,7 @@ export default {
   ENERGY_NEEDED: 'Energy needed',
   METAL_DESCRIPTION: 'Used in the extraction of metal ore, metal mines are of primary importance to all emerging and established empires.',
   REQUIRED_TO_BUILD: 'Required to improve to level ',
-  IMPROVE: 'Improve'
+  IMPROVE: 'Improve',
+  OVERVIEW: 'Overview',
+  RESEARCH: 'Research',
 };
