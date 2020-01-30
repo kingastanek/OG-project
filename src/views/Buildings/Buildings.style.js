@@ -67,6 +67,9 @@ export default theme => ({
      border: `2px solid ${colors.black}`,
      borderRadius: 6,
      position: 'relative',
+     display: 'flex',
+     justifyContent: 'center',
+     alignItems: 'center',
      '&:hover' : {
        border: '2px solid #ff9600',
      },
@@ -76,15 +79,13 @@ export default theme => ({
     bottom: 0,
     background: 'rgba(0,0,0,0.5)',
     width: 100,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
    },
    buildingImgClicked: {
      border: '2px solid #ff9600',
    },
    timeRemaining: {
+     zIndex: 20,
+     textAlign: 'center',
      color: colors.white,
      fontSize: 12,
      height: 18,
