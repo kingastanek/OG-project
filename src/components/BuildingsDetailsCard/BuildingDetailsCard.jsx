@@ -14,22 +14,36 @@ import strings from "config/strings";
 import styles from "./BuildingDetailsCard.style";
 
 class BuildingDetailsCard extends Component {
+  state = {
+    disabled: false,
+  }
+
   async componentDidMount() {
-    const { getUserBuildings } = this.props;
+    const { getUserBuildings, disabled } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
+    const { buildings, buildings: { metal: { isAbleToBuild } } } = this.props;
+    console.log("buildings", buildings)
+    console.log("isAbleToBuild", isAbleToBuild)
+    if (isAbleToBuild === 1) this.setState({ disabled: false })
+    if (isAbleToBuild === 2 || disabled) this.setState({ disabled: true })
   }
 
   onImproveClick = async () => {
-    const { buildingLevelUp,buildings } = this.props;
+    const { buildingLevelUp, buildings, getUserBuildings } = this.props;
     const { metal } = buildings;
     const userId = localStorage.getItem('userId');
     await buildingLevelUp(userId, metal.name);
+    await getUserBuildings(userId);
+    const { buildings: { metal: { isAbleToBuild } } } = this.props;
+    console.log("isAbleToBuild", isAbleToBuild)
+    if (isAbleToBuild === 2) this.setState({ disabled: true })
   }
 
   render() {
-    const { classes, active, buildings: { metal } } = this.props;
-    const { neededMetal, neededCristal, isAbleToBuild } = metal;
+    const { disabled } = this.state;
+    const { classes, active, buildings: { metal }, disabled: improveDisabled } = this.props;
+    const { neededMetal, neededCristal } = metal;
     const resourcesList = [
       { name: 'metal', value: neededMetal },
       { name: 'cristal', value: neededCristal },
@@ -78,7 +92,7 @@ class BuildingDetailsCard extends Component {
               label: classes.improveButtonLabel
             }}
             onClick={this.onImproveClick}
-            disabled={isAbleToBuild > 1}
+            disabled={disabled || improveDisabled}
             >{strings.IMPROVE}</Button>
         </Grid>
         <Grid className={classes.descriptionWrapper}>

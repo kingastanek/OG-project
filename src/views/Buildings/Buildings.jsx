@@ -18,7 +18,6 @@ class Buildings extends Component {
   state = {
     active: false,
     startTime: 100,
-    secondsRemaining: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -26,17 +25,19 @@ class Buildings extends Component {
 
   async componentDidMount() {
     const { getUserBuildings } = this.props;
+    const { secondsRemaining } = this.state; 
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
     this.getBuildTime();
-    const { secondsRemaining } = this.state;
+    this.xx = setInterval(() => this.getBuildTime(), 1000)
     this.timerInterval = setInterval(() => {
       this.setState(prevState => ({ startTime: prevState.startTime - 1}))
-     }, secondsRemaining * 10);
+    }, secondsRemaining * 10);
   }
 
   componentWillUnmount(){
     clearInterval(this.timerInterval);
+    clearInterval(this.xx);
   }
 
   toggleBuildingModal = () => {
@@ -44,15 +45,17 @@ class Buildings extends Component {
     this.setState({ active: !active })
   }
 
-  getBuildTime = () => {
+  getBuildTime = async () => {
     const { buildings: { metal: { buildTime } } } = this.props;
-    const hours = new Date(`December 1, ${buildTime}`).getHours();
-    this.setState({ hours });
-    const minutes = new Date(`December 1, ${buildTime}`).getMinutes();
-    this.setState({ minutes });
-    const seconds = new Date(`December 1, ${buildTime}`).getSeconds();
-    this.setState({ seconds });
-    this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
+    const timeParts = buildTime.split(':');
+    const { getUserBuildings } = this.props;
+    const userId = localStorage.getItem('userId');
+    await getUserBuildings(userId);
+    const [hours, minutes, seconds] = timeParts;
+    this.setState({ hours, minutes, seconds });
+    // const { secondsRemaining } = this.state;
+    // this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
+    // console.log("secondsRemaining", secondsRemaining);
   }
 
   render() {
@@ -60,7 +63,6 @@ class Buildings extends Component {
     const {
       active,
       startTime,
-      secondsRemaining,
       hours,
       minutes,
       seconds,
@@ -70,10 +72,10 @@ class Buildings extends Component {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
-    const timeRemaining = `${hours}h ${minutes}m ${seconds}s`;
+    const notAbleToBuild = isAbleToBuild === 2;
     return (
       <Grid container className={classes.container}>
-        <Grid item xs={12} className={classes.resourcesWrapper}>
+        <Grid className={classes.resourcesWrapper}>
           <img alt={strings.LOGO} src={logo} className={classes.logo} />
           <ResourcesBar />
           <img
@@ -82,32 +84,35 @@ class Buildings extends Component {
             className={classes.commanders}
           />
         </Grid>
-        <Grid item xs={2}><Menu /></Grid>
-        <Grid item xs={8} className={classes.mainContentContainer}>
-          <Grid className={classes.centeredWrapper}><ActionBar /></Grid>
-          <Grid className={classes.centeredWrapper}>
-            <img
-              src={buildingsBackground}
-              alt={strings.BUILDINGS}
-              className={classes.buildingsBigImg}
-            />
-            <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
+        <Grid item xs={12} className={classes.contentWrapper}>
+          <Grid item xs={2}><Menu /></Grid>
+          <Grid item xs={8} className={classes.mainContentContainer}>
+            <Grid className={classes.centeredWrapper}><ActionBar /></Grid>
+            <Grid className={classes.centeredWrapper}>
+              <img
+                src={buildingsBackground}
+                alt={strings.BUILDINGS}
+                className={classes.buildingsBigImg}
+              />
+              <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
+            </Grid>
+          <BuildingDetailsCard active={active} disabled={notAbleToBuild} />
+            <Grid className={classes.buildingsMines}>
+              <Paper
+                className={[classes.metalMineTab, buildingDetailsActive].join(' ')}
+                onClick={this.toggleBuildingModal}
+              >
+                {notAbleToBuild && (
+                  <React.Fragment>
+                    <div className={classes.timeRemaining}>{hours}h {minutes}m {seconds}s</div>
+                    <div className={classes.timeLayer} style={style} />
+                  </React.Fragment>
+                )}
+              </Paper>
+            </Grid>
           </Grid>
-         <BuildingDetailsCard active={active} />
-          <Grid className={classes.buildingsMines}>
-            <Paper
-              className={[classes.metalMineTab, buildingDetailsActive].join(' ')}
-              onClick={this.toggleBuildingModal}
-            >
-              {(secondsRemaining > 0 && isAbleToBuild === 2) && (
-                <div className={classes.timeLayer} style={style}>
-                  <div className={classes.timeRemaining}>{timeRemaining}</div>
-                </div>
-              )}
-            </Paper>
-          </Grid>
+          <Grid item xs={2}><Planets /></Grid> 
         </Grid>
-        <Grid item xs={2}><Planets /></Grid> 
       </Grid>
     );
   }
