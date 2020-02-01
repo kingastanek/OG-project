@@ -10,8 +10,10 @@ export default theme => ({
   resourcesWrapper: {
     display: 'flex',
     justifyContent: 'center',
+    width: '100%',
   },
   contentWrapper: {
+    display: 'flex',
     width: '100%',
   },
   logo: {

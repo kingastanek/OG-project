@@ -2,12 +2,9 @@ import colors from "config/colors";
 
 export default theme => ({
   container: {
-    height: '100vh',
+    height: '100%',
     width: 980,
     margin: '0 auto',
-  },
-  wrapper: {
-    height: '100%',
   },
   resourcesWrapper: {
     display: 'flex',
@@ -15,6 +12,7 @@ export default theme => ({
   },
   contentWrapper: {
     display: 'flex',
+    width: '100%',
   },
   logo: {
     width: 190,

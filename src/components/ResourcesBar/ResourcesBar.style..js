@@ -18,7 +18,6 @@ export default theme => ({
     height: ITEM_HEIGHT,
     paddingTop: 20,
     paddingLeft: 40,
-    float: 'left',
   },
   listItem: {
     display: 'block',

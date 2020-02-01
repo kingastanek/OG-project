@@ -17,37 +17,29 @@ class Main extends Component {
 
     return (
       <Grid container className={classes.container}>
-        <Grid className={classes.wrapper}>
-          <Grid item xs={12} className={classes.resourcesWrapper}>
-            <img alt="logo" src={logo} className={classes.logo} />
-            <ResourcesBar />
-            <img
-              alt="commanders"
-              src={commanders}
-              className={classes.commanders}
-            />
-          </Grid>
-          <Grid className={classes.contentWrapper}>
-            <Grid item xs={2}>
-              <Menu />
-            </Grid>
-            <Grid item xs={8} className={classes.actionBarContainer}>
-              <Grid className={classes.centeredWrapper}>
-                <ActionBar />
-              </Grid>
-              <Grid className={classes.centeredWrapper}>
-                <img src={welcome} alt="welcome" className={classes.welcomeImg} />
-                <div className={classes.welcomeTextBlock}>
-                  <Typography className={classes.welcomeText}>
-                    {strings.WELCOME_TEXT}
-                  </Typography>
-                </div>
-              </Grid>
-            </Grid>
-            <Grid item xs={2}>
-              <Planets />
+        <Grid item xs={12} className={classes.resourcesWrapper}>
+          <img alt="logo" src={logo} className={classes.logo} />
+          <ResourcesBar />
+          <img
+            alt="commanders"
+            src={commanders}
+            className={classes.commanders}
+          />
+        </Grid>
+        <Grid item xs={12} className={classes.contentWrapper}>
+          <Grid item xs={2}><Menu /></Grid>
+          <Grid item xs={8} className={classes.actionBarContainer}>
+            <Grid className={classes.centeredWrapper}><ActionBar /></Grid>
+            <Grid className={classes.centeredWrapper}>
+              <img src={welcome} alt="welcome" className={classes.welcomeImg} />
+              <div className={classes.welcomeTextBlock}>
+                <Typography className={classes.welcomeText}>
+                  {strings.WELCOME_TEXT}
+                </Typography>
+              </div>
             </Grid>
           </Grid>
+          <Grid item xs={2}><Planets /></Grid>
         </Grid>
       </Grid>
     );
