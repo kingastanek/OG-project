@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { Grid, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import strings from "config/strings";
-import ResourcesBar from 'components/ResourcesBar';
 import Menu from 'components/Menu';
 import ActionBar from 'components/ActionBar';
 import Planets from 'components/Planets';
 import BuildingDetailsCard from 'components/BuildingsDetailsCard';
-import logo from 'assets/images/logo.png';
+import TopResourcesPanel from 'components/TopResourcesPanel';
 import buildingsBackground from 'assets/images/buildingsMainImage.jpg';
-import commanders from 'assets/images/commanders.png';
 import { getBuildings } from 'store/actions/buildings';
 import styles from "./Buildings.style";
 
@@ -79,15 +77,7 @@ class Buildings extends Component {
     const notAbleToBuild = isAbleToBuild === 2;
     return (
       <Grid container className={classes.container}>
-        <Grid className={classes.resourcesWrapper}>
-          <img alt={strings.LOGO} src={logo} className={classes.logo} />
-          <ResourcesBar />
-          <img
-            alt={strings.COMMANDERS}
-            src={commanders}
-            className={classes.commanders}
-          />
-        </Grid>
+        <TopResourcesPanel />
         <Grid item xs={12} className={classes.contentWrapper}>
           <Grid item xs={2}><Menu /></Grid>
           <Grid item xs={8} className={classes.mainContentContainer}>

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import ResourcesBar from "components/ResourcesBar";
 import Menu from "components/Menu";
 import ActionBar from "components/ActionBar";
 import Planets from "components/Planets";
-import logo from "assets/images/logo.png";
+import TopResourcesPanel from "components/TopResourcesPanel";
 import welcome from "assets/images/welcome.jpg";
-import commanders from "assets/images/commanders.png";
 import styles from "./Main.style";
 import strings from "config/strings";
 
@@ -17,15 +15,7 @@ class Main extends Component {
 
     return (
       <Grid container className={classes.container}>
-        <Grid item xs={12} className={classes.resourcesWrapper}>
-          <img alt="logo" src={logo} className={classes.logo} />
-          <ResourcesBar />
-          <img
-            alt="commanders"
-            src={commanders}
-            className={classes.commanders}
-          />
-        </Grid>
+        <TopResourcesPanel />
         <Grid item xs={12} className={classes.contentWrapper}>
           <Grid item xs={2}><Menu /></Grid>
           <Grid item xs={8} className={classes.actionBarContainer}>
