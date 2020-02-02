@@ -22,9 +22,7 @@ class BuildingDetailsCard extends Component {
     const { getUserBuildings, disabled } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
-    const { buildings, buildings: { metal: { isAbleToBuild } } } = this.props;
-    console.log("buildings", buildings)
-    console.log("isAbleToBuild", isAbleToBuild)
+    const { buildings: { metal: { isAbleToBuild } } } = this.props;
     if (isAbleToBuild === 1) this.setState({ disabled: false })
     if (isAbleToBuild === 2 || disabled) this.setState({ disabled: true })
   }
@@ -36,7 +34,6 @@ class BuildingDetailsCard extends Component {
     await buildingLevelUp(userId, metal.name);
     await getUserBuildings(userId);
     const { buildings: { metal: { isAbleToBuild } } } = this.props;
-    console.log("isAbleToBuild", isAbleToBuild)
     if (isAbleToBuild === 2) this.setState({ disabled: true })
   }
 

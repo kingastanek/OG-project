@@ -21,18 +21,25 @@ class Buildings extends Component {
     hours: 0,
     minutes: 0,
     seconds: 0,
+    secondsRemaining: 0,
   }
 
   async componentDidMount() {
     const { getUserBuildings } = this.props;
-    const { secondsRemaining } = this.state; 
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
     this.getBuildTime();
+    // change to real stable values of buildTime
+    const h = 0;
+    const m = 10;
+    const s = 20;
+    this.setState({ secondsRemaining: (h * 3600) + (m * 60) + s });
+    const { secondsRemaining } = this.state;
     this.xx = setInterval(() => this.getBuildTime(), 1000)
     this.timerInterval = setInterval(() => {
       this.setState(prevState => ({ startTime: prevState.startTime - 1}))
     }, secondsRemaining * 10);
+  
   }
 
   componentWillUnmount(){
@@ -53,9 +60,6 @@ class Buildings extends Component {
     await getUserBuildings(userId);
     const [hours, minutes, seconds] = timeParts;
     this.setState({ hours, minutes, seconds });
-    // const { secondsRemaining } = this.state;
-    // this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
-    // console.log("secondsRemaining", secondsRemaining);
   }
 
   render() {
