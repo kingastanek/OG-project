@@ -4,6 +4,7 @@ import { reducer as form } from 'redux-form';
 import userConfig from './userConfig';
 import resources from './resources';
 import buildings from './buildings';
+import researches from './researches';
 
 export default combineReducers({
   routing,
@@ -11,4 +12,5 @@ export default combineReducers({
   userConfig,
   resources,
   buildings,
+  researches,
 });
