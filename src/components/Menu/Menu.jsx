@@ -15,7 +15,7 @@ class Menu extends Component {
     const links = [
       { name: OVERVIEW, linksTo: '/main' },
       { name: BUILDINGS, linksTo: '/buildings' },
-      { name: RESEARCH, linksTo: '/reasearch' }
+      { name: RESEARCH, linksTo: '/research' }
     ];
     return (
       <List className={classes.list}>
