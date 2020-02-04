@@ -21,4 +21,7 @@ export default {
   IMPROVE: 'Improve',
   OVERVIEW: 'Overview',
   RESEARCH: 'Research',
+  ENERGY_TECHNOLOGY: 'Energy Technology',
+  ENERGY_TECHNOLOGY_DESCRIPTION: 'The command of different types of energy is necessary for many new technologies.',
+  RESEARCH_TIME: 'Research time',
 };
