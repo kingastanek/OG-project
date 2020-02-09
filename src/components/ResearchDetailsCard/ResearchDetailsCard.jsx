@@ -28,8 +28,7 @@ class ResearchDetailsCard extends Component {
   }
 
   onImproveClick = async () => {
-    const { researchLevelUp, researches, getUserResearches } = this.props;
-    const { energyTechnology: { name } } = researches;
+    const { researchLevelUp, energyTechnology: { name }, getUserResearches } = this.props;
     const userId = localStorage.getItem('userId');
     await researchLevelUp(userId, name);
     await getUserResearches(userId);
@@ -117,7 +116,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUserResearches: userId => dispatch(getResearches(userId)),
-  researchLevelUp: (userId, buildingName) => dispatch(researchLevelUp(userId, buildingName))
+  researchLevelUp: (userId, researchName) => dispatch(researchLevelUp(userId, researchName))
 });
 
 export default connect(

@@ -1,4 +1,4 @@
-import researchesMainImage from 'assets/images/researchMainImage.jpg';
+import energyTechnologyTab from 'assets/images/researches.jpg';
 import resourcesImg from 'assets/images/resources.png';
 import improveButtonImg from 'assets/images/improveButton.png';
 import improveButtonDisabled from 'assets/images/improveButtonDisabled.png';
@@ -49,7 +49,7 @@ export default theme => ({
     boxSizing: 'border-box',
     height: 200,
     width: 200,
-    background: `url(${researchesMainImage}) 0px 200px`,
+    background: `url(${energyTechnologyTab}) 0px 200px`,
     border: `2px solid ${colors.black}`,
     display: 'inline-block',
    },

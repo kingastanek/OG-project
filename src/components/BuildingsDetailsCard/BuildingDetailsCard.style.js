@@ -126,24 +126,24 @@ export default theme => ({
    cristal: {
     ...resources,
     background: `url(${resourcesImg}) -48px -160px`,
-  },
-  resourceText: {
-    color: colors.white,
-    fontSize: 11,
-  },
-  improveButton: {
-    ...improveButton,
-    background: `url(${improveButtonImg}) no-repeat`,
-  },
-  improveButtonLabel: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: 700,
-    textTransform: 'capitalize',
-  },
-  improveButtonDisabled: {
-    ...improveButton,
-    background: `url(${improveButtonDisabled}) no-repeat`,
-    color: colors.white
-  }
+    },
+    resourceText: {
+      color: colors.white,
+      fontSize: 11,
+    },
+    improveButton: {
+      ...improveButton,
+      background: `url(${improveButtonImg}) no-repeat`,
+    },
+    improveButtonLabel: {
+      color: colors.white,
+      fontSize: 18,
+      fontWeight: 700,
+      textTransform: 'capitalize',
+    },
+    improveButtonDisabled: {
+      ...improveButton,
+      background: `url(${improveButtonDisabled}) no-repeat`,
+      color: colors.white
+    }
 });
