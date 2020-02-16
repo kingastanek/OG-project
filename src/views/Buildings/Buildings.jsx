@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Grid, Typography, Paper } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import strings from "config/strings";
 import Menu from 'components/Menu';
 import ActionBar from 'components/ActionBar';
 import Planets from 'components/Planets';
+import BuildingsTabsSection from 'components/BuildingsTabsSection';
 import BuildingDetailsCard from 'components/BuildingsDetailsCard';
 import TopResourcesPanel from 'components/TopResourcesPanel';
 import buildingsBackground from 'assets/images/buildingsMainImage.jpg';
+import buildingsImg from 'assets/images/buildings.png';
 import { getBuildings } from 'store/actions/buildings';
 import styles from "./Buildings.style";
 
 class Buildings extends Component {
   state = {
-    active: false,
+    metalActive: false,
+    cristalActive: false,
+    deuteriumActive: false,
     startTime: 100,
     hours: 0,
     minutes: 0,
@@ -45,9 +49,31 @@ class Buildings extends Component {
     clearInterval(this.xx);
   }
 
-  toggleBuildingModal = () => {
-    const { active } = this.state;
-    this.setState({ active: !active })
+  toggleMetalActive = () => {
+    const { metalActive } = this.state;
+    this.setState({
+      metalActive: !metalActive,
+      cristalActive: false,
+      deuteriumActive: false,
+    })
+  }
+
+  toggleCristalActive = () => {
+    const { cristalActive } = this.state;
+    this.setState({
+      metalActive: false,
+      cristalActive: !cristalActive,
+      deuteriumActive: false,
+    })
+  }
+
+  toggleDeuteriumActive = () => {
+    const { deuteriumActive } = this.state;
+    this.setState({
+      metalActive: false,
+      cristalActive: false,
+      deuteriumActive: !deuteriumActive,
+    })
   }
 
   getBuildTime = async () => {
@@ -60,21 +86,68 @@ class Buildings extends Component {
     this.setState({ hours, minutes, seconds });
   }
 
+  renderBuildingsTabs = () => {
+    const { classes, buildings: { metal, cristal, deuterium} } = this.props;
+    const { metalActive, cristalActive, deuteriumActive } = this.state;
+    const metalData = {
+      ...metal,
+      onClick: this.toggleMetalActive,
+      buildingDetailsActive: metalActive ? classes.buildingImgClicked : '',
+      style: {
+        backgroundImage: `url(${buildingsImg})`,
+        backgroundPosition: '0px 0px',
+      }
+    }
+
+    const cristalData = {
+      ...cristal,
+      onClick: this.toggleCristalActive,
+      buildingDetailsActive: cristalActive ? classes.buildingImgClicked : '',
+      style: {
+        backgroundImage: `url(${buildingsImg})`,
+        backgroundPosition: '-100px 0',
+      }
+    }
+
+    const deuteriumData = {
+      ...deuterium,
+      onClick: this.toggleDeuteriumActive,
+      buildingDetailsActive: deuteriumActive ? classes.buildingImgClicked : '',
+      style: {
+        backgroundImage: `url(${buildingsImg})`,
+        backgroundPosition: '-200px 0',
+      }
+    }
+    const buildingsData = [
+      metalData,
+      cristalData,
+      deuteriumData,
+    ];
+
+    return buildingsData.map(building => {
+      const {
+        onClick, 
+        style,
+        isAbleToBuild,
+        id,
+        buildingDetailsActive,
+      } = building;
+      return (
+        <BuildingsTabsSection
+          className={[classes.mineTab, buildingDetailsActive].join(' ')}
+          onClick={onClick}
+          notAbleToBuild={isAbleToBuild}
+          style={style}
+          key={id}
+        />
+    )})
+  }
+
   render() {
-    const { classes, buildings: { metal: { isAbleToBuild } } } = this.props;
-    const {
-      active,
-      startTime,
-      hours,
-      minutes,
-      seconds,
-    } = this.state;
-    const buildingDetailsActive = active ? classes.buildingImgClicked : '';
-    const style = {
-      height: `${startTime}%`,
-      maxHeight: '100%',
-    };
-    const notAbleToBuild = isAbleToBuild === 2;
+    const { classes } = this.props;
+    const { metalActive } = this.state;
+    // const notAbleToBuild = isAbleToBuild === 2;
+    const notAbleToBuild = false;
     return (
       <Grid container className={classes.container}>
         <TopResourcesPanel />
@@ -90,20 +163,8 @@ class Buildings extends Component {
               />
               <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
             </Grid>
-          <BuildingDetailsCard active={active} disabled={notAbleToBuild} />
-            <Grid className={classes.buildingsMines}>
-              <Paper
-                className={[classes.metalMineTab, buildingDetailsActive].join(' ')}
-                onClick={this.toggleBuildingModal}
-              >
-                {notAbleToBuild && (
-                  <React.Fragment>
-                    <div className={classes.timeRemaining}>{hours}h {minutes}m {seconds}s</div>
-                    <div className={classes.timeLayer} style={style} />
-                  </React.Fragment>
-                )}
-              </Paper>
-            </Grid>
+          <BuildingDetailsCard active={metalActive} disabled={notAbleToBuild} />
+          <Grid className={classes.buildingTabsWrapper}>{this.renderBuildingsTabs()}</Grid>
           </Grid>
           <Grid item xs={2}><Planets /></Grid> 
         </Grid>

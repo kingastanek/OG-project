@@ -1,5 +1,4 @@
 import colors from "config/colors";
-import buildingsImg from 'assets/images/buildings.png';
 
 export default theme => ({
   container: {
@@ -11,24 +10,24 @@ export default theme => ({
     display: 'flex',
     width: '100%',
   },
-   mainContentContainer: {
+  mainContentContainer: {
     paddingTop: 29,
     position: 'relative'
-   },
-   centeredWrapper: {
+  },
+  centeredWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-   },
-   buildingsBigImg: {
+  },
+  buildingsBigImg: {
     width: 600,
     height: 300,
     paddingTop: 12,
     borderRadius: 10,
-   },
-   overlayText: {
+  },
+  overlayText: {
     color: colors.white,
     fontSize: 20,
     fontWeight: 700,
@@ -37,44 +36,27 @@ export default theme => ({
     top: 15,
     right: 45,
     width: 450,
-   },
-   buildingsMines: {
-     width: 600,
-     margin: '0 auto',
-   },
-   metalMineTab: {
-     backgroundImage: `url(${buildingsImg})`,
-     backgroundPosition: '1px 198px',
-     backgroundSize: 'cover',
-     width: 100,
-     height: 100,
-     cursor: 'pointer',
-     border: `2px solid ${colors.black}`,
-     borderRadius: 6,
-     position: 'relative',
-     display: 'flex',
-     justifyContent: 'center',
-     alignItems: 'center',
-     '&:hover' : {
-       border: '2px solid #ff9600',
-     },
-   },
-   timeLayer: {
-    position: 'absolute',
-    bottom: 0,
-    background: 'rgba(0, 0, 0, 0.7)',
+  },
+  mineTab: {
+    backgroundSize: 'cover',
     width: 100,
-   },
-   buildingImgClicked: {
-     border: '2px solid #ff9600',
-   },
-   timeRemaining: {
-     zIndex: 20,
-     textAlign: 'center',
-     color: colors.white,
-     fontSize: 12,
-     height: 18,
-     width: '100%',
-     background: '#0d1014',
-   },
+    height: 100,
+    cursor: 'pointer',
+    border: `2px solid ${colors.black}`,
+    borderRadius: 6,
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover' : {
+      border: '2px solid #ff9600',
+    },
+  },
+  buildingImgClicked: {
+    border: '2px solid #ff9600',
+  },
+  buildingTabsWrapper: {
+    width: 600,
+    margin: '0 auto',
+  }
 })
