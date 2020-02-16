@@ -37,37 +37,158 @@ class BuildingDetailsCard extends Component {
     if (isAbleToBuild === 2) this.setState({ disabled: true })
   }
 
-  render() {
-    const { disabled } = this.state;
-    const { classes, active, buildings: { metal }, disabled: improveDisabled } = this.props;
-    const { neededMetal, neededCristal } = metal;
+  renderBuildingImage = () => {
+    const {
+      classes,
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    } = this.props;
+    if (metalActive) return <div className={classes.metalMineCardImg} />
+    if (cristalActive) return <div className={classes.cristalMineCardImg} />
+    if (deuteriumActive) return <div className={classes.deuteriumMineCardImg} />
+    return;
+  }
+
+  renderLevel = (plusOne) => {
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      buildings: {
+        metal: { level: metalLevel },
+        cristal: { level: cristalLevel },
+        deuterium: { level: deuteriumLevel },
+      },
+    } = this.props;
+    const metalLevelFinal = plusOne ? metalLevel + 1 : metalLevel;
+    const cristalLevelFinal = plusOne ? cristalLevel + 1 : cristalLevel;
+    const deuteriumLevelFinal = plusOne ? deuteriumLevel + 1 : deuteriumLevel;
+    return (
+      <>
+        {metalActive && metalLevelFinal}
+        {cristalActive && cristalLevelFinal}
+        {deuteriumActive && deuteriumLevelFinal}
+      </>
+    )
+  }
+
+  renderTitle = () => {
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    } = this.props;
+    return (
+      <>
+        {metalActive && strings.METAL_MINE}
+        {cristalActive && strings.CRISTAL_MINE}
+        {deuteriumActive && strings.DEUTERIUM_MINE}
+      </>
+    )
+  }
+
+  renderBuildTime = () => {
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      buildings: {
+        metal: { buildTime: metalBuildTime },
+        cristal: { buildTime: cristalBuildTime },
+        deuterium: { buildTime: deuteriumBuildTime },
+      },
+    } = this.props;
+    return (
+      <>
+        {metalActive && metalBuildTime}
+        {cristalActive && cristalBuildTime}
+        {deuteriumActive && deuteriumBuildTime}
+      </>
+    )
+  }
+
+  getResourcesList = () => {
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      buildings: {
+        metal: {
+          neededMetal: neededMetalM,
+          neededCristal: neededCristalM,
+        },
+        cristal: {
+          neededMetal: neededMetalC,
+          neededCristal: neededCristalC,
+        },
+        deuterium: {
+          neededMetal: neededMetalD,
+          neededCristal: neededCristalD,
+        },
+      },
+    } = this.props;
+    let neededMetal;
+    if (metalActive) neededMetal = neededMetalM;
+    if (cristalActive) neededMetal = neededMetalC;
+    if (deuteriumActive) neededMetal = neededMetalD;
+    let neededCristal;
+    if (metalActive) neededCristal = neededCristalM;
+    if (cristalActive) neededCristal = neededCristalC;
+    if (deuteriumActive) neededCristal = neededCristalD;
     const resourcesList = [
       { name: 'metal', value: neededMetal },
       { name: 'cristal', value: neededCristal },
     ];
+    return resourcesList;
+  }
+
+ getBuildingsDescription = () => {
+  const {
+    metalActive,
+    cristalActive,
+    deuteriumActive,
+  } = this.props;
+  return (
+    <>
+      {metalActive && strings.METAL_DESCRIPTION}
+      {cristalActive && strings.CRISTAL_DESCRIPTION}
+      {deuteriumActive && strings.DEUTERIUM_DESCRIPTION}
+    </>
+  )
+ }
+
+  render() {
+    const { disabled } = this.state;
+    const {
+      classes,
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      disabled: improveDisabled,
+    } = this.props;
+    const resourcesList = this.getResourcesList();
+    const active = metalActive || cristalActive || deuteriumActive;
     return (
       <Grid className={active ? classes.buildingDetailsActive : classes.buildingDetails}>
-        <div className={classes.metalMineCardImg} />
+        {this.renderBuildingImage()}
         <Grid className={classes.contentWrapper}>
           <Grid className={classes.mainInformation}>
             <Typography className={classes.mineNameText}>
-              {strings.METAL_MINE}
+              {this.renderTitle()}
             </Typography>
             <Typography className={classes.mineLevelText}>
-              {strings.LEVEL}: {metal.level}
+              {strings.LEVEL}: {this.renderLevel(false)}
             </Typography>
           </Grid>
           <Grid className={classes.productionInformation}>
             <Typography className={classes.productionText}>
-              {strings.PRODUCTION_DURATION}: {metal.buildTime}
-            </Typography>
-            <Typography className={classes.productionText}>
-              {strings.ENERGY_NEEDED}: 0
+              {strings.PRODUCTION_DURATION}: {this.renderBuildTime()}
             </Typography>
           </Grid>
           <Grid className={classes.buildCostsWrapper}>
             <Typography className={classes.buildCostsText}>
-              {strings.REQUIRED_TO_BUILD} {metal.level+1}:
+              {strings.REQUIRED_TO_BUILD} {this.renderLevel(true)}:
             </Typography>
             <List className={classes.list}>
               {resourcesList.map(resource => {
@@ -90,11 +211,11 @@ class BuildingDetailsCard extends Component {
             }}
             onClick={this.onImproveClick}
             disabled={disabled || improveDisabled}
-            >{strings.IMPROVE}</Button>
+          >{strings.IMPROVE}</Button>
         </Grid>
         <Grid className={classes.descriptionWrapper}>
           <Typography className={classes.descriptionText}>
-            {strings.METAL_DESCRIPTION}
+            {this.getBuildingsDescription()}
           </Typography>
         </Grid>
       </Grid>

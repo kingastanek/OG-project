@@ -145,7 +145,7 @@ class Buildings extends Component {
 
   render() {
     const { classes } = this.props;
-    const { metalActive } = this.state;
+    const { metalActive, cristalActive, deuteriumActive } = this.state;
     // const notAbleToBuild = isAbleToBuild === 2;
     const notAbleToBuild = false;
     return (
@@ -163,7 +163,12 @@ class Buildings extends Component {
               />
               <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
             </Grid>
-          <BuildingDetailsCard active={metalActive} disabled={notAbleToBuild} />
+          <BuildingDetailsCard
+            metalActive={metalActive}
+            cristalActive={cristalActive}
+            deuteriumActive={deuteriumActive}
+            disabled={notAbleToBuild}
+          />
           <Grid className={classes.buildingTabsWrapper}>{this.renderBuildingsTabs()}</Grid>
           </Grid>
           <Grid item xs={2}><Planets /></Grid> 
