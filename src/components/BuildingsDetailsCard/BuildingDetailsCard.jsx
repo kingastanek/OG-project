@@ -15,26 +15,55 @@ import styles from "./BuildingDetailsCard.style";
 
 class BuildingDetailsCard extends Component {
   state = {
-    disabled: false,
+    metalDisabled: false,
+    cristalDisabled: false,
+    deuteriumDisabled: false,
   }
 
   async componentDidMount() {
-    const { getUserBuildings, disabled } = this.props;
+    const {
+      getUserBuildings,
+      disabled,
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
-    const { buildings: { metal: { isAbleToBuild } } } = this.props;
-    if (isAbleToBuild === 1) this.setState({ disabled: false })
-    if (isAbleToBuild === 2 || disabled) this.setState({ disabled: true })
+    const { buildings: { metal, cristal, deuterium } } = this.props;
+    if (metal.isAbleToBuild === 2 || disabled) this.setState({ disabled: true })
   }
 
   onImproveClick = async () => {
-    const { buildingLevelUp, buildings, getUserBuildings } = this.props;
-    const { metal } = buildings;
+    const { 
+      buildingLevelUp,
+      buildings,
+      getUserBuildings,
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    } = this.props;
+    const { metal, cristal, deuterium } = buildings;
     const userId = localStorage.getItem('userId');
-    await buildingLevelUp(userId, metal.name);
+    if (metalActive) await buildingLevelUp(userId, metal.name);
+    if (cristalActive) await buildingLevelUp(userId, cristal.name);
+    if (deuteriumActive) await buildingLevelUp(userId, deuterium.name);
     await getUserBuildings(userId);
-    const { buildings: { metal: { isAbleToBuild } } } = this.props;
-    if (isAbleToBuild === 2) this.setState({ disabled: true })
+    const {
+      buildings: {
+        metal: {
+          isAbleToBuild: metalIsAbleToBuild,
+        },
+        cristal: {
+          isAbleToBuild: cristalIsAbleToBuild,
+        },
+        deuterium:{
+          isAbleToBuild: deuteriumIsAbleToBuild,
+        }
+      }} = this.props;
+    metalIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
+    cristalIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
+    deuteriumIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
   }
 
   renderBuildingImage = () => {
