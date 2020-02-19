@@ -24,9 +24,12 @@ class Buildings extends Component {
     minutes: 0,
     seconds: 0,
     secondsRemaining: 0,
+    notAbleToBuild: false,
   }
 
   async componentDidMount() {
+    const notAbleToBuild = this.checkNotAbleToBuild();
+    this.setState({ notAbleToBuild });
     const { getUserBuildings } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
@@ -143,11 +146,32 @@ class Buildings extends Component {
     )})
   }
 
+  checkNotAbleToBuild = () => {
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    } = this.state;
+    const {
+      buildings: {
+        metal: { isAbleToBuild: metalIsAbleToBuild },
+        cristal: { isAbleToBuild: cristalIsAbleToBuild },
+        deuterium:{ isAbleToBuild: deuteriumIsAbleToBuild }
+      }
+    } = this.props;
+    if (metalActive) return metalIsAbleToBuild;
+    if (cristalActive) return cristalIsAbleToBuild;
+    if (deuteriumActive) return deuteriumIsAbleToBuild;
+  }
+
   render() {
     const { classes } = this.props;
-    const { metalActive, cristalActive, deuteriumActive } = this.state;
-    // const notAbleToBuild = isAbleToBuild === 2;
-    const notAbleToBuild = false;
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      notAbleToBuild,
+    } = this.state;
     return (
       <Grid container className={classes.container}>
         <TopResourcesPanel />

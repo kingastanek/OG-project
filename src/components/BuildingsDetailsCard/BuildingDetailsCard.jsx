@@ -21,17 +21,10 @@ class BuildingDetailsCard extends Component {
   }
 
   async componentDidMount() {
-    const {
-      getUserBuildings,
-      disabled,
-      metalActive,
-      cristalActive,
-      deuteriumActive,
-    } = this.props;
+    const { getUserBuildings } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
-    const { buildings: { metal, cristal, deuterium } } = this.props;
-    if (metal.isAbleToBuild === 2 || disabled) this.setState({ disabled: true })
+    this.checkIsAbleToBuild();
   }
 
   onImproveClick = async () => {
@@ -49,21 +42,7 @@ class BuildingDetailsCard extends Component {
     if (cristalActive) await buildingLevelUp(userId, cristal.name);
     if (deuteriumActive) await buildingLevelUp(userId, deuterium.name);
     await getUserBuildings(userId);
-    const {
-      buildings: {
-        metal: {
-          isAbleToBuild: metalIsAbleToBuild,
-        },
-        cristal: {
-          isAbleToBuild: cristalIsAbleToBuild,
-        },
-        deuterium:{
-          isAbleToBuild: deuteriumIsAbleToBuild,
-        }
-      }} = this.props;
-    metalIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
-    cristalIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
-    deuteriumIsAbleToBuild === 2 && this.setState({ deuteriumActive: false })
+    this.checkIsAbleToBuild();
   }
 
   renderBuildingImage = () => {
@@ -187,17 +166,52 @@ class BuildingDetailsCard extends Component {
   )
  }
 
+ checkIfButtonDisabled = () => {
+   const {
+    metalActive,
+    cristalActive,
+    deuteriumActive,
+   } = this.props;
+   const {
+    metalDisabled,
+    cristalDisabled,
+    deuteriumDisabled,
+   } = this.state;
+   if (metalActive) return metalDisabled;
+   if (cristalActive) return cristalDisabled;
+   if (deuteriumActive) return deuteriumDisabled;
+ }
+
+ checkIsAbleToBuild = () => {
+  const {
+    disabled,
+    buildings: {
+      metal: { isAbleToBuild: metalIsAbleToBuild },
+      cristal: { isAbleToBuild: cristalIsAbleToBuild },
+      deuterium:{ isAbleToBuild: deuteriumIsAbleToBuild }
+    }
+  } = this.props;
+  (metalIsAbleToBuild === 2 || metalIsAbleToBuild === 0 || disabled)
+    && this.setState({ metalDisabled: true });
+  (cristalIsAbleToBuild === 2 || cristalIsAbleToBuild === 0 || disabled)
+    && this.setState({ cristalDisabled: true });
+  (deuteriumIsAbleToBuild === 2 || deuteriumIsAbleToBuild === 0 || disabled)
+    && this.setState({ deuteriumDisabled: true });
+ }
+
   render() {
-    const { disabled } = this.state;
     const {
       classes,
       metalActive,
       cristalActive,
       deuteriumActive,
       disabled: improveDisabled,
+      buildings,
     } = this.props;
+    const disabled = this.checkIfButtonDisabled();
     const resourcesList = this.getResourcesList();
     const active = metalActive || cristalActive || deuteriumActive;
+    console.log('buildings', buildings);
     return (
       <Grid className={active ? classes.buildingDetailsActive : classes.buildingDetails}>
         {this.renderBuildingImage()}
