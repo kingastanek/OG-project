@@ -40,7 +40,7 @@ class Buildings extends Component {
     const s = 20;
     this.setState({ secondsRemaining: (h * 3600) + (m * 60) + s });
     const { secondsRemaining } = this.state;
-    this.xx = setInterval(() => this.getBuildTime(), 1000)
+    this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
     this.timerInterval = setInterval(() => {
       this.setState(prevState => ({ startTime: prevState.startTime - 1}))
     }, secondsRemaining * 10);
@@ -49,7 +49,7 @@ class Buildings extends Component {
 
   componentWillUnmount(){
     clearInterval(this.timerInterval);
-    clearInterval(this.xx);
+    clearInterval(this.buildTimeTimer);
   }
 
   toggleMetalActive = () => {
@@ -90,8 +90,24 @@ class Buildings extends Component {
   }
 
   renderBuildingsTabs = () => {
-    const { classes, buildings: { metal, cristal, deuterium} } = this.props;
-    const { metalActive, cristalActive, deuteriumActive } = this.state;
+    const {
+      classes,
+      hours,
+      minutes,
+      seconds,
+      buildings: {
+        metal,
+        cristal,
+        deuterium
+      },
+    } = this.props;
+    const {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+      startTime,
+      notAbleToBuild,
+    } = this.state;
     const metalData = {
       ...metal,
       onClick: this.toggleMetalActive,
@@ -127,11 +143,15 @@ class Buildings extends Component {
       deuteriumData,
     ];
 
+    const timeLayerStyle = {
+      height: `${startTime}%`,
+      maxHeight: '100%',
+    };
+
     return buildingsData.map(building => {
       const {
         onClick, 
         style,
-        isAbleToBuild,
         id,
         buildingDetailsActive,
       } = building;
@@ -139,9 +159,12 @@ class Buildings extends Component {
         <BuildingsTabsSection
           className={[classes.mineTab, buildingDetailsActive].join(' ')}
           onClick={onClick}
-          notAbleToBuild={isAbleToBuild}
           style={style}
           key={id}
+          timeLayerStyle={timeLayerStyle}
+          hours={hours}
+          minutes={minutes}
+          seconds={seconds}
         />
     )})
   }
