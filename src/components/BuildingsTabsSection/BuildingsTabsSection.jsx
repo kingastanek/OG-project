@@ -4,12 +4,6 @@ import { withStyles } from "@material-ui/styles";
 import styles from "./BuildingsTabsSection.style";
 
 class BuildingDetailsCard extends Component {
-  state = {
-    minutes: 0,
-    hours: 0,
-    seconds: 0,
-    startTime: 100,
-  };
   render() {
     const {
       classes,
@@ -17,17 +11,11 @@ class BuildingDetailsCard extends Component {
       onClick,
       notAbleToBuild,
       style,
-    } = this.props;
-    const {
+      timeLayerStyle,
       minutes,
       hours,
       seconds,
-      startTime,
-    } = this.state;
-    // const style = {
-    //   height: `${startTime}%`,
-    //   maxHeight: '100%',
-    // };
+    } = this.props;
     return (
       <Grid className={classes.buildingsMines}>
       <Paper
@@ -38,8 +26,7 @@ class BuildingDetailsCard extends Component {
         {notAbleToBuild && (
           <React.Fragment>
             <div className={classes.timeRemaining}>{hours}h {minutes}m {seconds}s</div>
-            {/* <div className={classes.timeLayer} style={style} /> */}
-            <div className={classes.timeLayer} />
+            <div className={classes.timeLayer} style={timeLayerStyle} />
           </React.Fragment>
         )} 
       </Paper>
