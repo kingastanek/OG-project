@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import styles from "./BuildingsTabsSection.style";
+import styles from "./BuildingsTabSection.style";
 
 class BuildingDetailsCard extends Component {
   render() {

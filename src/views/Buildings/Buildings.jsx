@@ -6,7 +6,7 @@ import strings from "config/strings";
 import Menu from 'components/Menu';
 import ActionBar from 'components/ActionBar';
 import Planets from 'components/Planets';
-import BuildingsTabsSection from 'components/BuildingsTabsSection';
+import BuildingsTabSection from 'components/BuildingsTabSection';
 import BuildingDetailsCard from 'components/BuildingsDetailsCard';
 import TopResourcesPanel from 'components/TopResourcesPanel';
 import buildingsBackground from 'assets/images/buildingsMainImage.jpg';
@@ -156,7 +156,7 @@ class Buildings extends Component {
         buildingDetailsActive,
       } = building;
       return (
-        <BuildingsTabsSection
+        <BuildingsTabSection
           className={[classes.mineTab, buildingDetailsActive].join(' ')}
           onClick={onClick}
           style={style}
