@@ -1,1 +1,1 @@
-export { default } from './ResearchTabSection.style';
+export { default } from './ResearchTabSection';
