@@ -106,7 +106,6 @@ class Buildings extends Component {
       cristalActive,
       deuteriumActive,
       startTime,
-      notAbleToBuild,
     } = this.state;
     const metalData = {
       ...metal,

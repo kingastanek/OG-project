@@ -15,45 +15,59 @@ import styles from "./Research.style";
 
 class Research extends Component {
   state = {
-    active: false
+    active: {
+      energyTechnology: false,
+      laserTechnology: false,
+      ionTechnology: false,
+      hyperspaceTechnology: false,
+      plasmaTechnology: false,
+      combustionDrive: false,
+      impulseDrive: false,
+      hyperspaceDrive: false,
+      espionageTechnology: false,
+      computerTechnology: false,
+      astrophysics: false,
+      intergalacticResearchNetwork: false,
+      gravitonTechnology: false,
+      weaponsTechnology: false,
+      shieldingTechnology: false,
+      armorTechnology: false,
+      allResearchesData: false,
+    }
   }
 
   async componentDidMount() {
     const { getUserResearches } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserResearches(userId);
-    // this.getBuildTime();
-    // // change to real stable values of buildTime
-    // const h = 0;
-    // const m = 10;
-    // const s = 20;
-    // this.setState({ secondsRemaining: (h * 3600) + (m * 60) + s });
-    // const { secondsRemaining } = this.state;
-    // this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
-    // this.startTimeTimer = setInterval(() => {
-    //   this.setState(prevState => ({ startTime: prevState.startTime - 1}))
-    // }, secondsRemaining * 10);
   }
-
-  // componentWillUnmount(){
-  //   clearInterval(this.startTimeTimer);
-  //   clearInterval(this.buildTimeTimer);
-  // }
 
   toggleResearchModal = () => {
     const { active } = this.state;
     this.setState({ active: !active })
   }
 
-  // getBuildTime = async () => {
-  //   const { energyTechnology: { buildTime } } = this.props;
-  //   const timeParts = buildTime.split(':');
-  //   const { getUserResearches } = this.props;
-  //   const userId = localStorage.getItem('userId');
-  //   await getUserResearches(userId);
-  //   const [hours, minutes, seconds] = timeParts;
-  //   this.setState({ hours, minutes, seconds });
-  // }
+  researchDetailsActive = () => {
+    const {
+      energyTechnology,
+      laserTechnology,
+      ionTechnology,
+      hyperspaceTechnology,
+      plasmaTechnology,
+      combustionDrive,
+      impulseDrive,
+      hyperspaceDrive,
+      espionageTechnology,
+      computerTechnology,
+      astrophysics,
+      intergalacticResearchNetwork,
+      gravitonTechnology,
+      weaponsTechnology,
+      shieldingTechnology,
+      armorTechnology,
+      allResearchesData
+    } = this.state;
+  }
 
   render() {
     const { classes, energyTechnology: { isAbleToBuild } } = this.props;
@@ -75,11 +89,12 @@ class Research extends Component {
             <Typography className={classes.overlayText}>{strings.RESEARCH}</Typography>
           </Grid>
           <ResearchDetailsCard active={active} disabled={notAbleToBuild} />
-          <ResearchTabSection
-            toggleResearchModal={this.toggleResearchModal}
-            active={active}
-            notAbleToBuild={notAbleToBuild}
-          />
+          <Grid className={classes.researchTabSectionWrapper}>
+            <ResearchTabSection
+              toggleResearchModal={this.toggleResearchModal}
+              active={this.getActiveResearch}
+            />
+          </Grid>
         </Grid>
         <Grid item xs={2}><Planets /></Grid> 
       </Grid>

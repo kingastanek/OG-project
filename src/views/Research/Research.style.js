@@ -37,4 +37,11 @@ export default theme => ({
     right: 45,
     width: 450,
    },
+   researchTabSectionWrapper: {
+    width: 600,
+    margin: '0 auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+   },
 })

@@ -12,7 +12,6 @@ class ResearchTabSection extends Component {
     minutes: 0,
     seconds: 0,
     secondsRemaining: 0,
-    active: false
   };
 
   async componentDidMount() {
@@ -51,8 +50,8 @@ class ResearchTabSection extends Component {
     const {
       classes,
       active,
-      notAbleToBuild,
       toggleResearchModal,
+      allResearchesData,
     } = this.props;
     const {
       hours,
@@ -60,16 +59,23 @@ class ResearchTabSection extends Component {
       seconds,
       startTime,
     } = this.state;
+    const [ allResearches ] = allResearchesData;
     const researchDetailsActive = active ? classes.researchImgClicked : '';
     const style = {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
-    return (
+    console.log('allResearches',allResearches)
+    return allResearches ? allResearches.map((research, index) => {
+      const { isAbleToBuild,  } = research;
+      const notAbleToBuild = isAbleToBuild === 2;
+      console.log('index * 200}', index * 200)
+      return (
       <Grid className={classes.researchTechnologyWrapper}>
         <Paper
-          className={[classes.energyTechnology, researchDetailsActive].join(' ')}
+          className={[classes.technology, researchDetailsActive].join(' ')}
           onClick={toggleResearchModal}
+          style={{ backgroundPosition: `${index * (-100)}px 0` }}
         >
           {notAbleToBuild && (
             <React.Fragment>
@@ -79,12 +85,14 @@ class ResearchTabSection extends Component {
           )}
         </Paper>
       </Grid>
-    )
+      )
+    }) : null;
   }
 }
 
 const mapStateToProps = state => ({
   energyTechnology: state.reducer.researches.energyTechnology,
+  allResearchesData: state.reducer.researches.allResearchesData,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,10 +3,10 @@ import researchesImg from 'assets/images/researches.jpg';
 
 export default theme => ({
   researchTechnologyWrapper: {
-    width: 600,
-    margin: '0 auto',
+    width: 'fit-content',
+    marginBottom: 5
   },
-  energyTechnology: {
+  technology: {
     backgroundImage: `url(${researchesImg})`,
     backgroundPosition: '1px 198px',
     backgroundSize: 'cover',
