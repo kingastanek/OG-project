@@ -10,7 +10,7 @@ import BuildingsTabSection from 'components/BuildingsTabSection';
 import BuildingDetailsCard from 'components/BuildingsDetailsCard';
 import TopResourcesPanel from 'components/TopResourcesPanel';
 import buildingsBackground from 'assets/images/buildingsMainImage.jpg';
-import buildingsImg from 'assets/images/buildings.png';
+import { getBuildingsData } from 'config/BuildingsData'
 import { getBuildings } from 'store/actions/buildings';
 import styles from "./Buildings.style";
 
@@ -34,49 +34,18 @@ class Buildings extends Component {
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
     this.getBuildTime();
-    // change to real stable values of buildTime
-    const h = 0;
-    const m = 10;
-    const s = 20;
-    this.setState({ secondsRemaining: (h * 3600) + (m * 60) + s });
+    const { hours, minutes, seconds } = this.state;
+    this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
     const { secondsRemaining } = this.state;
     this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
     this.timerInterval = setInterval(() => {
       this.setState(prevState => ({ startTime: prevState.startTime - 1}))
     }, secondsRemaining * 10);
-  
-  }
+    }
 
   componentWillUnmount(){
     clearInterval(this.timerInterval);
     clearInterval(this.buildTimeTimer);
-  }
-
-  toggleMetalActive = () => {
-    const { metalActive } = this.state;
-    this.setState({
-      metalActive: !metalActive,
-      cristalActive: false,
-      deuteriumActive: false,
-    })
-  }
-
-  toggleCristalActive = () => {
-    const { cristalActive } = this.state;
-    this.setState({
-      metalActive: false,
-      cristalActive: !cristalActive,
-      deuteriumActive: false,
-    })
-  }
-
-  toggleDeuteriumActive = () => {
-    const { deuteriumActive } = this.state;
-    this.setState({
-      metalActive: false,
-      cristalActive: false,
-      deuteriumActive: !deuteriumActive,
-    })
   }
 
   getBuildTime = async () => {
@@ -89,59 +58,69 @@ class Buildings extends Component {
     this.setState({ hours, minutes, seconds });
   }
 
-  renderBuildingsTabs = () => {
+  toggleMetalActive = () => {
+    const { metalActive } = this.state;
+    this.setState({
+      metalActive: !metalActive,
+      cristalActive: false,
+      deuteriumActive: false,
+    })
+  }
+  
+  toggleCristalActive = () => {
+    const { cristalActive } = this.state;
+    this.setState({
+      metalActive: false,
+      cristalActive: !cristalActive,
+      deuteriumActive: false,
+    })
+  }
+  
+  toggleDeuteriumActive = () => {
+    const { deuteriumActive } = this.state;
+    this.setState({
+      metalActive: false,
+      cristalActive: false,
+      deuteriumActive: !deuteriumActive,
+    })
+  }
+
+  getBuildingsTabsData = () => {
     const {
       classes,
-      hours,
-      minutes,
-      seconds,
-      buildings: {
-        metal,
-        cristal,
-        deuterium
-      },
+      buildings,
     } = this.props;
     const {
       metalActive,
       cristalActive,
       deuteriumActive,
-      startTime,
     } = this.state;
-    const metalData = {
-      ...metal,
-      onClick: this.toggleMetalActive,
-      buildingDetailsActive: metalActive ? classes.buildingImgClicked : '',
-      style: {
-        backgroundImage: `url(${buildingsImg})`,
-        backgroundPosition: '0px 0px',
-      }
+    const buildingsTabsState = {
+      metalActive,
+      cristalActive,
+      deuteriumActive,
+    };
+    const buildingsTabsProps = {
+      classes,
+      buildings,
+    };
+    const buildingsTabsClick = {
+      toggleMetalActive:  this.toggleMetalActive,
+      toggleCristalActive: this.toggleCristalActive,
+      toggleDeuteriumActive: this.toggleDeuteriumActive,
     }
+    const buildingsData = getBuildingsData(
+      buildingsTabsState,
+      buildingsTabsProps,
+      buildingsTabsClick,
+    );
+    return buildingsData;
+  }
 
-    const cristalData = {
-      ...cristal,
-      onClick: this.toggleCristalActive,
-      buildingDetailsActive: cristalActive ? classes.buildingImgClicked : '',
-      style: {
-        backgroundImage: `url(${buildingsImg})`,
-        backgroundPosition: '-100px 0',
-      }
-    }
-
-    const deuteriumData = {
-      ...deuterium,
-      onClick: this.toggleDeuteriumActive,
-      buildingDetailsActive: deuteriumActive ? classes.buildingImgClicked : '',
-      style: {
-        backgroundImage: `url(${buildingsImg})`,
-        backgroundPosition: '-200px 0',
-      }
-    }
-    const buildingsData = [
-      metalData,
-      cristalData,
-      deuteriumData,
-    ];
-
+  renderBuildingsTabs = () => {
+    const { classes } = this.props;
+    const { startTime, hours, minutes, seconds } = this.state;
+    const buildingsData = this.getBuildingsTabsData();
     const timeLayerStyle = {
       height: `${startTime}%`,
       maxHeight: '100%',
