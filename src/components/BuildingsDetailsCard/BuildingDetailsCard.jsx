@@ -206,12 +206,10 @@ class BuildingDetailsCard extends Component {
       cristalActive,
       deuteriumActive,
       disabled: improveDisabled,
-      buildings,
     } = this.props;
     const disabled = this.checkIfButtonDisabled();
     const resourcesList = this.getResourcesList();
     const active = metalActive || cristalActive || deuteriumActive;
-    console.log('buildings', buildings);
     return (
       <Grid className={active ? classes.buildingDetailsActive : classes.buildingDetails}>
         {this.renderBuildingImage()}

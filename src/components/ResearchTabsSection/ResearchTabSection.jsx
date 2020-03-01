@@ -65,11 +65,9 @@ class ResearchTabSection extends Component {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
-    console.log('allResearches',allResearches)
     return allResearches ? allResearches.map((research, index) => {
       const { isAbleToBuild,  } = research;
       const notAbleToBuild = isAbleToBuild === 2;
-      console.log('index * 200}', index * 200)
       return (
       <Grid className={classes.researchTechnologyWrapper}>
         <Paper
