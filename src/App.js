@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Welcome from 'views/Welcome';
 import Main from 'views/Main';
 import Buildings from 'views/Buildings';
-import Research from 'views/Research';
+import Research from 'views/Researches';
 
 function App() {
   return (
