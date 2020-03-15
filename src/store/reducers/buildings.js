@@ -6,6 +6,7 @@ const initialState = {
   metal: {},
   deuterium: {},
   cristal: {},
+  buildings: [],
 }
 
 export default (state = initialState, action) => {
@@ -31,6 +32,11 @@ export default (state = initialState, action) => {
       });
       return Object.assign({}, state, {
         areBuildingsFetching: false,
+        buildings: [
+          metal[0],
+          cristal[0],
+          deuterium[0]
+        ],
         metal: metal[0],
         cristal: cristal[0],
         deuterium: deuterium[0]

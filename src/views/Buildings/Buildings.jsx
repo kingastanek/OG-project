@@ -16,31 +16,28 @@ import styles from "./Buildings.style";
 
 class Buildings extends Component {
   state = {
-    metalActive: false,
-    cristalActive: false,
-    deuteriumActive: false,
+    activeBuilding: '',
+    buildingsData: [],
     startTime: 100,
     hours: 0,
     minutes: 0,
     seconds: 0,
     secondsRemaining: 0,
-    notAbleToBuild: false,
   }
 
   async componentDidMount() {
-    const notAbleToBuild = this.checkNotAbleToBuild();
-    this.setState({ notAbleToBuild });
     const { getUserBuildings } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
+    this.getBuildingsData();
     this.getBuildTime();
-    const { hours, minutes, seconds } = this.state;
-    this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
-    const { secondsRemaining } = this.state;
-    this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
-    this.timerInterval = setInterval(() => {
-      this.setState(prevState => ({ startTime: prevState.startTime - 1}))
-    }, secondsRemaining * 10);
+    // const { hours, minutes, seconds } = this.state;
+    // this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
+    // const { secondsRemaining } = this.state;
+    // this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
+    // this.timerInterval = setInterval(() => {
+    //   this.setState(prevState => ({ startTime: prevState.startTime - 1}))
+    // }, secondsRemaining * 10);
     }
 
   componentWillUnmount(){
@@ -48,9 +45,16 @@ class Buildings extends Component {
     clearInterval(this.buildTimeTimer);
   }
 
+  getActiveElement = () => {
+    const { buildings } = this.props;
+    const { activeBuilding } = this.state;
+    const { buildings: buildingsData } = buildings;
+    return buildingsData.find(building => building.buildingId === activeBuilding);
+  }
+
   getBuildTime = async () => {
     const { buildings: { metal: { buildTime } } } = this.props;
-    const timeParts = buildTime.split(':');
+    const timeParts = buildTime && buildTime.split(':');
     const { getUserBuildings } = this.props;
     const userId = localStorage.getItem('userId');
     await getUserBuildings(userId);
@@ -58,87 +62,28 @@ class Buildings extends Component {
     this.setState({ hours, minutes, seconds });
   }
 
-  toggleMetalActive = () => {
-    const { metalActive } = this.state;
-    this.setState({
-      metalActive: !metalActive,
-      cristalActive: false,
-      deuteriumActive: false,
-    })
-  }
-  
-  toggleCristalActive = () => {
-    const { cristalActive } = this.state;
-    this.setState({
-      metalActive: false,
-      cristalActive: !cristalActive,
-      deuteriumActive: false,
-    })
-  }
-  
-  toggleDeuteriumActive = () => {
-    const { deuteriumActive } = this.state;
-    this.setState({
-      metalActive: false,
-      cristalActive: false,
-      deuteriumActive: !deuteriumActive,
-    })
-  }
-
-  getBuildingsTabsData = () => {
-    const {
-      classes,
-      buildings,
-    } = this.props;
-    const {
-      metalActive,
-      cristalActive,
-      deuteriumActive,
-    } = this.state;
-    const buildingsTabsState = {
-      metalActive,
-      cristalActive,
-      deuteriumActive,
-    };
-    const buildingsTabsProps = {
-      classes,
-      buildings,
-    };
-    const buildingsTabsClick = {
-      toggleMetalActive:  this.toggleMetalActive,
-      toggleCristalActive: this.toggleCristalActive,
-      toggleDeuteriumActive: this.toggleDeuteriumActive,
-    }
-    const buildingsData = getBuildingsData(
-      buildingsTabsState,
-      buildingsTabsProps,
-      buildingsTabsClick,
-    );
-    return buildingsData;
-  }
-
   renderBuildingsTabs = () => {
     const { classes } = this.props;
     const { startTime, hours, minutes, seconds } = this.state;
-    const buildingsData = this.getBuildingsTabsData();
+    const buildingsData = this.getBuildingsData();
     const timeLayerStyle = {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
 
-    return buildingsData.map(building => {
+    return buildingsData && buildingsData.map(building => {
       const {
-        onClick, 
         style,
-        id,
-        buildingDetailsActive,
+        buildingId,
+        active,
       } = building;
+      const classNames = active ? [classes.mineTab, classes.buildingImgClicked].join(' ') : classes.mineTab;
       return (
         <BuildingsTabSection
-          className={[classes.mineTab, buildingDetailsActive].join(' ')}
-          onClick={onClick}
+          className={classNames}
+          onClick={() => this.onClick(buildingId)}
           style={style}
-          key={id}
+          key={buildingId}
           timeLayerStyle={timeLayerStyle}
           hours={hours}
           minutes={minutes}
@@ -147,32 +92,40 @@ class Buildings extends Component {
     )})
   }
 
-  checkNotAbleToBuild = () => {
-    const {
-      metalActive,
-      cristalActive,
-      deuteriumActive,
-    } = this.state;
-    const {
-      buildings: {
-        metal: { isAbleToBuild: metalIsAbleToBuild },
-        cristal: { isAbleToBuild: cristalIsAbleToBuild },
-        deuterium:{ isAbleToBuild: deuteriumIsAbleToBuild }
+  getBuildingsData = () => {
+    const { buildings } = this.props;
+    const { activeBuilding } = this.state;
+    const data = getBuildingsData(buildings);
+    const activeElement = this.getActiveElement();
+    const { buildingsData } = this.state;
+    const dataToMap = (buildingsData.length && buildingsData) || data;
+    const updatedData = dataToMap.map(item => {
+      const active = activeElement && activeElement.buildingId === item.buildingId
+        ? !item.active
+        : item.buildingId === activeBuilding;
+      return {
+        ...item,
+        active,
       }
-    } = this.props;
-    if (metalActive) return metalIsAbleToBuild;
-    if (cristalActive) return cristalIsAbleToBuild;
-    if (deuteriumActive) return deuteriumIsAbleToBuild;
+    });
+    return updatedData;
+  }
+
+  onClick = async (id) => {
+    await this.setState({ activeBuilding: id });
+    const updatedData = this.getBuildingsData();
+    this.setState({ buildingsData: updatedData });
+  };
+
+  checkNotAbleToBuild = () => {
+    const activeElement = this.getActiveElement();
+    return activeElement && activeElement.isAbleToBuild;
   }
 
   render() {
     const { classes } = this.props;
-    const {
-      metalActive,
-      cristalActive,
-      deuteriumActive,
-      notAbleToBuild,
-    } = this.state;
+    const { activeBuilding } = this.state;
+    const buildingElement = this.getBuildingsData();
     return (
       <Grid container className={classes.container}>
         <TopResourcesPanel />
@@ -189,10 +142,9 @@ class Buildings extends Component {
               <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
             </Grid>
           <BuildingDetailsCard
-            metalActive={metalActive}
-            cristalActive={cristalActive}
-            deuteriumActive={deuteriumActive}
-            disabled={notAbleToBuild}
+            activeBuilding={activeBuilding}
+            buildingElement={buildingElement}
+            disabled={this.checkNotAbleToBuild()}
           />
           <Grid className={classes.buildingTabsWrapper}>{this.renderBuildingsTabs()}</Grid>
           </Grid>

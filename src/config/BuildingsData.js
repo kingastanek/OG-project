@@ -1,16 +1,10 @@
 import buildingsImg from "assets/images/buildings.png";
 
-export function getBuildingsData(state, props, onClick) {
-  const {
-    classes,
-    buildings: { metal, cristal, deuterium }
-  } = props;
-  const { metalActive, cristalActive, deuteriumActive } = state;
-  const { toggleMetalActive, toggleCristalActive, toggleDeuteriumActive } = onClick; 
+export function getBuildingsData(buildings) {
+  const { metal, cristal, deuterium } = buildings;
   const metalData = {
     ...metal,
-    onClick: toggleMetalActive,
-    buildingDetailsActive: metalActive ? classes.buildingImgClicked : "",
+    name: 'metal',
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "0px 0px"
@@ -19,8 +13,7 @@ export function getBuildingsData(state, props, onClick) {
 
   const cristalData = {
     ...cristal,
-    onClick: toggleCristalActive,
-    buildingDetailsActive: cristalActive ? classes.buildingImgClicked : "",
+    name: 'cristal',
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "-100px 0"
@@ -29,8 +22,7 @@ export function getBuildingsData(state, props, onClick) {
 
   const deuteriumData = {
     ...deuterium,
-    onClick: toggleDeuteriumActive,
-    buildingDetailsActive: deuteriumActive ? classes.buildingImgClicked : "",
+    name: 'deuterium',
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "-200px 0"
