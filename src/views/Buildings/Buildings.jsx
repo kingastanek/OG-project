@@ -16,7 +16,7 @@ import styles from "./Buildings.style";
 
 class Buildings extends Component {
   state = {
-    activeBuilding: '',
+    activeBuildingId: '',
     buildingsData: [],
     startTime: 100,
     hours: 0,
@@ -31,13 +31,13 @@ class Buildings extends Component {
     await getUserBuildings(userId);
     this.getBuildingsData();
     this.getBuildTime();
-    // const { hours, minutes, seconds } = this.state;
-    // this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
-    // const { secondsRemaining } = this.state;
-    // this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
-    // this.timerInterval = setInterval(() => {
-    //   this.setState(prevState => ({ startTime: prevState.startTime - 1}))
-    // }, secondsRemaining * 10);
+    const { hours, minutes, seconds } = this.state;
+    this.setState({ secondsRemaining: (hours * 3600) + (minutes * 60) + seconds });
+    const { secondsRemaining } = this.state;
+    this.buildTimeTimer = setInterval(() => this.getBuildTime(), 1000)
+    this.timerInterval = setInterval(() => {
+      this.setState(prevState => ({ startTime: prevState.startTime - 1}))
+    }, secondsRemaining * 10);
     }
 
   componentWillUnmount(){
@@ -47,9 +47,9 @@ class Buildings extends Component {
 
   getActiveElement = () => {
     const { buildings } = this.props;
-    const { activeBuilding } = this.state;
+    const { activeBuildingId } = this.state;
     const { buildings: buildingsData } = buildings;
-    return buildingsData.find(building => building.buildingId === activeBuilding);
+    return buildingsData.find(building => building.buildingId === activeBuildingId);
   }
 
   getBuildTime = async () => {
@@ -70,14 +70,15 @@ class Buildings extends Component {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
-
     return buildingsData && buildingsData.map(building => {
       const {
         style,
         buildingId,
         active,
       } = building;
-      const classNames = active ? [classes.mineTab, classes.buildingImgClicked].join(' ') : classes.mineTab;
+      const classNames = active
+        ? [classes.mineTab, classes.buildingImgClicked].join(' ')
+        : classes.mineTab;
       return (
         <BuildingsTabSection
           className={classNames}
@@ -94,37 +95,41 @@ class Buildings extends Component {
 
   getBuildingsData = () => {
     const { buildings } = this.props;
-    const { activeBuilding } = this.state;
-    const data = getBuildingsData(buildings);
-    const activeElement = this.getActiveElement();
+    const { activeBuildingId } = this.state;
+    const data = getBuildingsData(buildings, activeBuildingId);
     const { buildingsData } = this.state;
-    const dataToMap = (buildingsData.length && buildingsData) || data;
+    const dataToMap = (buildingsData.length && buildingsData) || data; 
     const updatedData = dataToMap.map(item => {
-      const active = activeElement && activeElement.buildingId === item.buildingId
-        ? !item.active
-        : item.buildingId === activeBuilding;
       return {
         ...item,
-        active,
+        active: item.buildingId === activeBuildingId,
       }
     });
     return updatedData;
   }
 
   onClick = async (id) => {
-    await this.setState({ activeBuilding: id });
+    const { activeBuildingId } = this.state;
+    if (activeBuildingId === id) return this.clearBuildingsDataState();
+    await this.setState({ activeBuildingId: id });
     const updatedData = this.getBuildingsData();
     this.setState({ buildingsData: updatedData });
   };
 
+  clearBuildingsDataState = () => {
+    this.setState({ activeBuildingId: '' });
+    const updatedData = this.getBuildingsData();
+    this.setState({ buildingsData: updatedData });
+  }
+
   checkNotAbleToBuild = () => {
     const activeElement = this.getActiveElement();
-    return activeElement && activeElement.isAbleToBuild;
+    return activeElement && activeElement.isAbleToBuild !== 1;
   }
 
   render() {
     const { classes } = this.props;
-    const { activeBuilding } = this.state;
+    const { activeBuildingId } = this.state;
     const buildingElement = this.getBuildingsData();
     return (
       <Grid container className={classes.container}>
@@ -142,7 +147,7 @@ class Buildings extends Component {
               <Typography className={classes.overlayText}>{strings.BUILDINGS}</Typography>
             </Grid>
           <BuildingDetailsCard
-            activeBuilding={activeBuilding}
+            activeBuildingId={activeBuildingId}
             buildingElement={buildingElement}
             disabled={this.checkNotAbleToBuild()}
           />

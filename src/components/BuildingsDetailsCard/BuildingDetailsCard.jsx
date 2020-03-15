@@ -22,9 +22,9 @@ class BuildingDetailsCard extends Component {
   }
 
   getActiveElement = () => {
-    const { activeBuilding, buildings } = this.props;
+    const { activeBuildingId, buildings } = this.props;
     const { buildings: buildingsData } = buildings;
-    return buildingsData.find(building => building.buildingId === activeBuilding);
+    return buildingsData.find(building => building.buildingId === activeBuildingId);
   }
 
   onImproveClick = async () => {
@@ -94,11 +94,9 @@ class BuildingDetailsCard extends Component {
  }
 
   render() {
-    const { classes, disabled, activeBuilding, buildingElement } = this.props;
+    const { classes, disabled, activeBuildingId, buildingElement } = this.props;
     const resourcesList = this.getResourcesList();
-    const activeElement = buildingElement.find(building => building.buildingId === activeBuilding);
-    // console.log('activeElement', activeElement);
-    // console.log('buildingElement', buildingElement);
+    const activeElement = buildingElement.find(building => building.buildingId === activeBuildingId);
     return (
       <Grid className={
         activeElement && activeElement.active

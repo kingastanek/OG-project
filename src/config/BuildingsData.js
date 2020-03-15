@@ -1,10 +1,10 @@
 import buildingsImg from "assets/images/buildings.png";
 
-export function getBuildingsData(buildings) {
+export function getBuildingsData(buildings, activeBuildingId) {
   const { metal, cristal, deuterium } = buildings;
   const metalData = {
     ...metal,
-    name: 'metal',
+    active: metal.buildingId === activeBuildingId,
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "0px 0px"
@@ -13,7 +13,7 @@ export function getBuildingsData(buildings) {
 
   const cristalData = {
     ...cristal,
-    name: 'cristal',
+    active: cristal.buildingId === activeBuildingId,
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "-100px 0"
@@ -22,7 +22,7 @@ export function getBuildingsData(buildings) {
 
   const deuteriumData = {
     ...deuterium,
-    name: 'deuterium',
+    active: deuterium.buildingId === activeBuildingId,
     style: {
       backgroundImage: `url(${buildingsImg})`,
       backgroundPosition: "-200px 0"
