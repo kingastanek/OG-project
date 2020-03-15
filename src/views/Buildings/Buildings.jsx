@@ -70,7 +70,7 @@ class Buildings extends Component {
       height: `${startTime}%`,
       maxHeight: '100%',
     };
-    return buildingsData && buildingsData.map(building => {
+    return buildingsData && buildingsData.map((building, index) => {
       const {
         style,
         buildingId,
@@ -81,10 +81,10 @@ class Buildings extends Component {
         : classes.mineTab;
       return (
         <BuildingsTabSection
+          key={buildingId || index}
           className={classNames}
           onClick={() => this.onClick(buildingId)}
           style={style}
-          key={buildingId}
           timeLayerStyle={timeLayerStyle}
           hours={hours}
           minutes={minutes}

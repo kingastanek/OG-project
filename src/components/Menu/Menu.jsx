@@ -19,8 +19,8 @@ class Menu extends Component {
     ];
     return (
       <List className={classes.list}>
-        {links.map(link => (
-          <ListItem key={link.name} className={classes.listItem}>
+        {links.map((link, index) => (
+          <ListItem key={link.name || index} className={classes.listItem}>
             <NavLink activeClassName={classes.activeLink} to={link.linksTo} className={classes.linksText}>{link.name}</NavLink>
           </ListItem>
         ))}
