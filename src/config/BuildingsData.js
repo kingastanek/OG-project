@@ -1,36 +1,42 @@
 import buildingsImg from "assets/images/buildings.png";
 
-export function getBuildingsData(buildings, activeBuildingId) {
+const createBuildingData = (
+  building, 
+  activeBuildingId,
+  backgroundPosition
+) => {
+  return {
+    ...building,
+    active: building.buildingId === activeBuildingId,
+    style: {
+      backgroundImage: `url(${buildingsImg})`,
+      backgroundPosition,
+    }
+  }
+}
+
+const getBuildingsData = (buildings, activeBuildingId) => {
   const { metal, cristal, deuterium } = buildings;
-  const metalData = {
-    ...metal,
-    active: metal.buildingId === activeBuildingId,
-    style: {
-      backgroundImage: `url(${buildingsImg})`,
-      backgroundPosition: "0px 0px"
-    }
-  };
 
-  const cristalData = {
-    ...cristal,
-    active: cristal.buildingId === activeBuildingId,
-    style: {
-      backgroundImage: `url(${buildingsImg})`,
-      backgroundPosition: "-100px 0"
-    }
-  };
+  const metalData = createBuildingData(
+    metal,
+    activeBuildingId,
+    '0px 0px'
+  );
 
-  const deuteriumData = {
-    ...deuterium,
-    active: deuterium.buildingId === activeBuildingId,
-    style: {
-      backgroundImage: `url(${buildingsImg})`,
-      backgroundPosition: "-200px 0"
-    }
-  };
+  const cristalData = createBuildingData(
+    cristal,
+    activeBuildingId,
+    '-100px 0px'
+  );
+
+  const deuteriumData = createBuildingData(
+    deuterium,
+    activeBuildingId,
+    '-200px 0px'
+  );
+
   return [metalData, cristalData, deuteriumData];
 }
 
-export default {
-  getBuildingsData
-};
+export default { getBuildingsData };
