@@ -11,11 +11,11 @@ import styles from "./Menu.style.";
 class Menu extends Component {
   render() {
     const { classes } = this.props;
-    const { OVERVIEW, BUILDINGS, RESEARCH } = strings;
+    const { OVERVIEW, BUILDINGS, RESEARCHES } = strings;
     const links = [
       { name: OVERVIEW, linksTo: '/main' },
       { name: BUILDINGS, linksTo: '/buildings' },
-      { name: RESEARCH, linksTo: '/research' }
+      { name: RESEARCHES, linksTo: '/research' }
     ];
     return (
       <List className={classes.list}>
