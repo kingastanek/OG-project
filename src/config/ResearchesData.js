@@ -15,7 +15,7 @@ const createTechnologyData = (
   }
 }
 
-const getResearchesData = (researches, activeTechnologyId) => {
+export const getResearchesData = (researches, activeTechnologyId) => {
   const {
     energyTechnology,
     laserTechnology,

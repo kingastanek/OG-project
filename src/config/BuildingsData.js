@@ -15,7 +15,7 @@ const createBuildingData = (
   }
 }
 
-const getBuildingsData = (buildings, activeBuildingId) => {
+export const getBuildingsData = (buildings, activeBuildingId) => {
   const { metal, cristal, deuterium } = buildings;
 
   const metalData = createBuildingData(
