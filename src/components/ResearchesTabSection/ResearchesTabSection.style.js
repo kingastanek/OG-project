@@ -1,7 +1,7 @@
 export default theme => ({
-  researchMines: {
+  researches: {
     display: 'inline-block',
-    marginRight: 2
+    marginBottom: 5
   },
   timeLayer: {
     position: 'absolute',

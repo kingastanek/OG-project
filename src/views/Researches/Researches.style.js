@@ -10,24 +10,24 @@ export default theme => ({
     display: 'flex',
     width: '100%',
   },
-   mainContentContainer: {
+  mainContentContainer: {
     paddingTop: 29,
     position: 'relative'
-   },
-   centeredWrapper: {
+  },
+  centeredWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-   },
-   researchesBigImg: {
+  },
+  researchesBigImg: {
     width: 600,
     height: 300,
     paddingTop: 12,
     borderRadius: 10,
-   },
-   overlayText: {
+  },
+  overlayText: {
     color: colors.white,
     fontSize: 20,
     fontWeight: 700,
@@ -36,12 +36,30 @@ export default theme => ({
     top: 15,
     right: 45,
     width: 450,
-   },
-   researchTabSectionWrapper: {
+  },
+  technologyTab: {
+    backgroundSize: 'cover',
+    width: 100,
+    height: 100,
+    cursor: 'pointer',
+    border: `2px solid ${colors.black}`,
+    borderRadius: 6,
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover' : {
+      border: '2px solid #ff9600',
+    },
+  },
+  researchImgClicked: {
+    border: '2px solid #ff9600',
+  },
+  researchesTabsWrapper: {
     width: 600,
     margin: '0 auto',
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around'
-   },
+    justifyContent: 'space-between',
+  }
 })

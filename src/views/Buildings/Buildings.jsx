@@ -130,7 +130,7 @@ class Buildings extends Component {
   render() {
     const { classes } = this.props;
     const { activeBuildingId } = this.state;
-    const buildingElement = this.getBuildingsData();
+    const buildingsElements = this.getBuildingsData();
     return (
       <Grid container className={classes.container}>
         <TopResourcesPanel />
@@ -148,7 +148,7 @@ class Buildings extends Component {
             </Grid>
           <BuildingDetailsCard
             activeBuildingId={activeBuildingId}
-            buildingElement={buildingElement}
+            buildingsElements={buildingsElements}
             disabled={this.checkNotAbleToBuild()}
           />
           <Grid className={classes.buildingTabsWrapper}>{this.renderBuildingsTabs()}</Grid>

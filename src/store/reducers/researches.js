@@ -19,7 +19,7 @@ const initialState = {
   weaponsTechnology: {},
   shieldingTechnology: {},
   armorTechnology: {},
-  allResearchesData: [],
+  researches: [],
 }
 
 export default (state = initialState, action) => {
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
         weaponsTechnology,
         shieldingTechnology,
         armorTechnology,
-        allResearchesData: [data],
+        researches: [ ...data ],
       })
     }
     case types.GET_USER_RESEARCHES_FAILURE: {

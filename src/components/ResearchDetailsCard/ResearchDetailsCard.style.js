@@ -1,4 +1,4 @@
-import energyTechnologyTab from 'assets/images/researches.jpg';
+import buildingsImg from 'assets/images/buildings.png';
 import resourcesImg from 'assets/images/resources.png';
 import improveButtonImg from 'assets/images/improveButton.png';
 import improveButtonDisabled from 'assets/images/improveButtonDisabled.png';
@@ -45,13 +45,13 @@ export default theme => ({
     zIndex: 100,
     borderRadius: 4,
   },
-  researchMineCardImg: {
+  buildingCardImg: {
     boxSizing: 'border-box',
     height: 200,
     width: 200,
-    background: `url(${energyTechnologyTab}) 0px 200px`,
     border: `2px solid ${colors.black}`,
     display: 'inline-block',
+    backgroundSize: 'cover',
    },
    mainInformation: {
      ...information,
@@ -126,28 +126,24 @@ export default theme => ({
    cristal: {
     ...resources,
     background: `url(${resourcesImg}) -48px -160px`,
-  },
-  deuterium: {
-    ...resources,
-    background: `url(${resourcesImg}) -96px -160px`,
-  },
-  resourceText: {
-    color: colors.white,
-    fontSize: 11,
-  },
-  improveButton: {
-    ...improveButton,
-    background: `url(${improveButtonImg}) no-repeat`,
-  },
-  improveButtonLabel: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: 700,
-    textTransform: 'capitalize',
-  },
-  improveButtonDisabled: {
-    ...improveButton,
-    background: `url(${improveButtonDisabled}) no-repeat`,
-    color: colors.white
-  }
+    },
+    resourceText: {
+      color: colors.white,
+      fontSize: 11,
+    },
+    improveButton: {
+      ...improveButton,
+      background: `url(${improveButtonImg}) no-repeat`,
+    },
+    improveButtonLabel: {
+      color: colors.white,
+      fontSize: 18,
+      fontWeight: 700,
+      textTransform: 'capitalize',
+    },
+    improveButtonDisabled: {
+      ...improveButton,
+      background: `url(${improveButtonDisabled}) no-repeat`,
+      color: colors.white
+    }
 });

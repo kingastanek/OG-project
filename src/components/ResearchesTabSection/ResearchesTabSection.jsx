@@ -17,7 +17,7 @@ class ResearchesTabSection extends Component {
       seconds,
     } = this.props;
     return (
-      <Grid className={classes.researchMines}>
+      <Grid className={classes.researches}>
       <Paper
         className={className}
         onClick={onClick}
