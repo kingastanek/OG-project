@@ -9,7 +9,10 @@ import {
   Button,
 } from '@material-ui/core';
 import { withStyles } from "@material-ui/styles";
+import buildingsImg from "assets/images/buildings.png";
 import { getBuildings, buildingLevelUp } from 'store/actions/buildings';
+import { getBuildingsData } from 'config/BuildingsData'
+import colors from 'config/colors';
 import strings from "config/strings";
 import styles from "./BuildingDetailsCard.style";
 
@@ -37,14 +40,24 @@ class BuildingDetailsCard extends Component {
   }
 
   renderBuildingImage = () => {
-    const { classes } = this.props;
-    const activeElement = this.getActiveElement();
-    switch (activeElement && activeElement.name) {
-      case "METAL_MINE": return <div className={classes.metalMineCardImg} />;
-      case "CRISTAL_MINE": return  <div className={classes.cristalMineCardImg} />;
-      case "DEUTERIUM_MINE": return <div className={classes.deuteriumMineCardImg} />;
-      default:
-    };
+    const { buildings, activeBuildingId } = this.props;
+    const buildingsData = getBuildingsData(buildings, activeBuildingId);
+    const activeElement = buildingsData.find(building => activeBuildingId === building.buildingId);
+    const backgroundPosition = activeElement && activeElement.bigImgBackgroundPosition;
+    return activeElement
+      ? <div
+          style={{
+            backgroundPosition,
+            backgroundImage: `url(${buildingsImg})`,
+            boxSizing: 'border-box',
+            height: 200,
+            width: 200,
+            border: `2px solid ${colors.black}`,
+            display: 'inline-block',
+            backgroundSize: 'cover',
+          }}
+        />
+      : null;
   }
 
   renderLevel = (plusOne) => {
@@ -55,12 +68,7 @@ class BuildingDetailsCard extends Component {
 
   renderTitle = () => {
     const activeElement = this.getActiveElement();
-    switch (activeElement && activeElement.name) {
-      case "METAL_MINE": return strings.METAL_MINE;
-      case "CRISTAL_MINE": return strings.CRISTAL_MINE;
-      case "DEUTERIUM_MINE": return strings.DEUTERIUM_MINE;
-      default:
-    };
+    return activeElement && strings[activeElement.name];
   }
 
   renderBuildTime = () => {
@@ -78,13 +86,10 @@ class BuildingDetailsCard extends Component {
   }
 
  getBuildingsDescription = () => {
-  const activeElement = this.getActiveElement();
-    switch (activeElement && activeElement.name) {
-      case "METAL_MINE": return strings.METAL_DESCRIPTION;
-      case "CRISTAL_MINE": return strings.CRISTAL_DESCRIPTION;
-      case "DEUTERIUM_MINE": return strings.DEUTERIUM_DESCRIPTION;
-      default:
-    };
+  const { buildings, activeBuildingId } = this.props;
+    const buildingsData = getBuildingsData(buildings, activeBuildingId);
+    const activeElement = buildingsData.find(building => activeBuildingId === building.buildingId);
+    return activeElement && activeElement.description;
  }
 
  checkIsAbleToBuild = () => {
@@ -94,9 +99,9 @@ class BuildingDetailsCard extends Component {
  }
 
   render() {
-    const { classes, disabled, activeBuildingId, buildingElement } = this.props;
+    const { classes, disabled, activeBuildingId, buildingsElements } = this.props;
     const resourcesList = this.getResourcesList();
-    const activeElement = buildingElement.find(building => building.buildingId === activeBuildingId);
+    const activeElement = buildingsElements.find(building => building.buildingId === activeBuildingId);
     return (
       <Grid className={
         activeElement && activeElement.active

@@ -30,15 +30,6 @@ const information = {
   padding: 8,
 }
 
-const buildingCardImg = {
-  boxSizing: 'border-box',
-  height: 200,
-  width: 200,
-  border: `2px solid ${colors.black}`,
-  display: 'inline-block',
-  backgroundSize: 'cover',
-}
-
 export default theme => ({
   buildingDetails: {
     display: 'none',
@@ -54,17 +45,13 @@ export default theme => ({
     zIndex: 100,
     borderRadius: 4,
   },
-  metalMineCardImg: {
-    ...buildingCardImg,
-    background: `url(${buildingsImg}) 2px 0px`,
-   },
-   cristalMineCardImg: {
-    ...buildingCardImg,
-    background: `url(${buildingsImg}) -194px 0px`,
-   },
-   deuteriumMineCardImg: {
-    ...buildingCardImg,
-    background: `url(${buildingsImg}) -389px 0px`,
+  buildingCardImg: {
+    boxSizing: 'border-box',
+    height: 200,
+    width: 200,
+    border: `2px solid ${colors.black}`,
+    display: 'inline-block',
+    backgroundSize: 'cover',
    },
    mainInformation: {
      ...information,
