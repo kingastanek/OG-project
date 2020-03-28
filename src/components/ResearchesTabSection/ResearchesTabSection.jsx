@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import styles from "./ResearchTabSection.style";
+import styles from "./ResearchesTabSection.style";
 
-class ResearchTabSection extends Component {
+class ResearchesTabSection extends Component {
   render() {
     const {
       classes,
@@ -35,4 +35,4 @@ class ResearchTabSection extends Component {
   }
 }
 
-export default withStyles(styles)(ResearchTabSection);
+export default withStyles(styles)(ResearchesTabSection);
