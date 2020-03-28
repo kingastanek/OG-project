@@ -90,7 +90,7 @@ class BuildingDetailsCard extends Component {
  checkIsAbleToBuild = () => {
   const { disabled } = this.props;
   const activeElement = this.getActiveElement();
-  return activeElement !== 1 || disabled;
+  return(activeElement && activeElement.isAbleToBuild !== 1)|| disabled;
  }
 
   render() {
